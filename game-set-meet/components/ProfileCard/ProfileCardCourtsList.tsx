@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { MonoText, MonoTextHeader } from "../StyledText";
+import { MonoText, MonoTextSubHeader } from "../StyledText";
 import CourtChip from "./CourtChip";
 
 interface ProfileCardCourtsListProps {
@@ -9,7 +9,7 @@ interface ProfileCardCourtsListProps {
 const ProfileCardCourtsList = ({ courts }: ProfileCardCourtsListProps) => {
   return (
     <View style={{ flex: 1 }}>
-      <MonoTextHeader>Courts:</MonoTextHeader>
+      <MonoTextSubHeader>Courts:</MonoTextSubHeader>
       {courts.map((court) => (
         <CourtChip key={court.id} court={court} />
       ))}

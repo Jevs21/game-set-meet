@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TextInput, StyleSheet, View } from "react-native";
-import { MonoText, MonoTextHeader } from "./StyledText";
+import { MonoTextSubHeader } from "./StyledText";
 
 interface EditTextFieldProps {
   label: string;
@@ -14,7 +14,7 @@ const EditTextField = (props: EditTextFieldProps) => {
 
   return (
     <View style={style.container}>
-      <MonoTextHeader style={style.label}>{label}</MonoTextHeader>
+      <MonoTextSubHeader style={style.label}>{label}</MonoTextSubHeader>
       <TextInput
         value={value}
         editable={true}

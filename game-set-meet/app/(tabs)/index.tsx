@@ -1,7 +1,7 @@
 import { Button, FlatList, StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+import { Separator, Text, View } from '../../components/Themed';
 import ProfileCard from '../../components/ProfileCard/ProfileCard';
 import generateTestUserData from '../../global/testDataGenerator';
 
@@ -36,7 +36,7 @@ export default function TabOneScreen() {
         data={testUserList}
         renderItem={({ item }) => <ProfileCard user={item} />}
         keyExtractor={(item, index) => item.id || index.toString()}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        ItemSeparatorComponent={() => <Separator />}
       />
     </View>
   );
@@ -50,6 +50,8 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   separator: {
-    height: 10
+    height: 1,
+    width: '100%',
+    backgroundColor: '#CED0CE',
   },
 });

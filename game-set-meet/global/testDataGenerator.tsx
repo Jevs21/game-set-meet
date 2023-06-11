@@ -20,6 +20,58 @@ function randomBoolean() {
 
 const sports = ['Tennis', 'Badminton', 'Basketball'];
 
+let famousPlaces = [
+  {
+    name: "Great Pyramid of Giza",
+    latitude: 44.41611704341544,
+    longitude: -79.7036701416235
+  },
+  {
+    name: "Statue of Liberty",
+    latitude: 40.6892,
+    longitude: -74.0445
+  },
+  {
+    name: "Eiffel Tower",
+    latitude: 48.8584,
+    longitude: 2.2945
+  },
+  {
+    name: "Taj Mahal",
+    latitude: 27.1751,
+    longitude: 78.0421
+  },
+  {
+    name: "Sydney Opera House",
+    latitude: -33.8568,
+    longitude: 151.2153
+  },
+  {
+    name: "Christ the Redeemer",
+    latitude: -22.9519,
+    longitude: -43.2105
+  },
+  {
+    name: "Great Wall of China",
+    latitude: 40.4319,
+    longitude: 116.5704
+  },
+  {
+    name: "Colosseum",
+    latitude: 41.8902,
+    longitude: 12.4922
+  },
+  {
+    name: "Machu Picchu",
+    latitude: -13.1631,
+    longitude: -72.5450
+  },
+  {
+    name: "Petra",
+    latitude: 30.3285,
+    longitude: 35.4444
+  }
+];
 
 
 // Array of first names and pronouns
@@ -72,13 +124,17 @@ function generateTestUserData() {
   }));
 
   // Generate court data
-  const userCourts = new Array(randomNumber(1, 3)).fill(null).map(() => ({
-    id: randomString(10),
-    name: generateParkName(),
-    address: `Street ${randomNumber(1, 100)}`,
-    lat: randomNumber(-90, 90),
-    lng: randomNumber(-180, 180),
-  }));
+  const userCourts = [];
+  for (let i = 0; i < 3; i++) {
+    const randomPlace = famousPlaces[randomNumber(0, famousPlaces.length - 1)];
+    userCourts.push({
+      id: randomString(10),
+      name: randomPlace.name,
+      address: randomPlace.name,
+      lat: randomPlace.latitude,
+      lng: randomPlace.longitude,
+    });
+  }
 
   const fullNameAndPronouns = generateFullNameAndPronouns();
   const availability = new Array(7).fill(null).map(() => new Array(3).fill(null).map(() => randomBoolean()));

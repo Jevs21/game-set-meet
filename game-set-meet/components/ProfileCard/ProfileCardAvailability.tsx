@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { MonoText, MonoTextHeader } from '../StyledText';
+import { MonoText, MonoTextSubHeader } from '../StyledText';
 
 interface ProfileCardAvailabilityProps {
   availability: boolean[][] | null;
@@ -16,7 +16,7 @@ const ProfileCardAvailability = ({ availability }: ProfileCardAvailabilityProps)
 
   return (
     <View style={styles.container}>
-      <MonoTextHeader>Availability:</MonoTextHeader>
+      <MonoTextSubHeader>Availability:</MonoTextSubHeader>
       <View style={styles.grid}>
         <View style={styles.rowHeader}>
           {rowHeaders.map((header, index) => (
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginVertical: 10
   },
   rowHeader: {
     alignItems: 'center',

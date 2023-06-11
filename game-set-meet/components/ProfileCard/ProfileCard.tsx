@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../global/store";
-import { Text, StyleSheet } from "react-native";
-import { BaseText, MonoText } from "../StyledText";
+import { Text, StyleSheet, Dimensions, Platform } from "react-native";
+import { BaseText, MonoText, MonoTextHeader } from "../StyledText";
 import { Avatar, Button } from "react-native-elements";
 import ProfileCardAvailability from "./ProfileCardAvailability";
 import ProfileCardSportsList from "./ProfileCardSportsList";
 import ProfileCardCourtsList from "./ProfileCardCourtsList";
-import { View, Card } from "../Themed";
+import { View, Card, Separator } from "../Themed";
 
 
 
@@ -16,19 +16,21 @@ interface ProfileCardProps {
 
 const ProfileCard = ({user}: ProfileCardProps) => {
   // Get user data from global store
-  const store = useSelector((state: RootState) => state.userData);
-
+  const store = useSelector((state: RootState) => state.userData); 
   return (
-    <Card style={styles.container}>
+    <Card>
       {/* <Card> */}
       <View style={styles.header}>
         <Avatar rounded source={{ uri: user.imgUrl }} size="large" />
-        <MonoText>{user.name}</MonoText>
-        {/* Assuming the pronouns are stored in the user.pronouns */}
+        <MonoTextHeader>{user.name}</MonoTextHeader>
         <Text style={styles.pronouns}>{user.pronouns}</Text>
       </View>
 
-      <BaseText>{user.bio}</BaseText>
+      <View style={{ marginVertical: 20, marginHorizontal: 5 }}>
+        <MonoText>{user.bio}</MonoText>
+      </View>
+
+      <Separator />
 
       <View style={styles.subview}>
         <ProfileCardSportsList sports={user.sports}/>
@@ -44,25 +46,10 @@ const ProfileCard = ({user}: ProfileCardProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexGrow: 1,
-    padding: 15,
-    marginTop: 10,
-    marginHorizontal: 20,
-    // backgroundColor: '#FFF',
-    borderRadius: 10,
-    // Handle light and dark mode
-    // backgroundColor: '#1E1E1E',
-    // shadowOffset: { width: 0, height: 1 },
-    // shadowOpacity: 0.3,
-    // shadowRadius: 1,
-    // elevation: 2,
-  },
   header: {
     flexDirection: 'column',
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: 15
   },
   name: {
     fontSize: 18,
@@ -81,7 +68,7 @@ const styles = StyleSheet.create({
   subview: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: 20
   },
   playButton: {
     backgroundColor: '#4B9CD3',
