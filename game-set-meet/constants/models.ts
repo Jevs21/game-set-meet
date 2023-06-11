@@ -1,6 +1,7 @@
 interface UserData {
   id: string;
   name: string;
+  pronouns: string;
   imgUrl: string;
   bio: string;
   sports: SportData[];
@@ -13,6 +14,7 @@ interface UserData {
 interface SportData {
   id: string;
   name: string;
+  icon: string;
   skillLevel: string;
 }
 

@@ -1,8 +1,9 @@
-import { Button, StyleSheet } from 'react-native';
+import { Button, FlatList, StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
 import ProfileCard from '../../components/ProfileCard/ProfileCard';
+import generateTestUserData from '../../global/testDataGenerator';
 
 export default function TabOneScreen() {
   // const addDocument = async () => {
@@ -15,14 +16,28 @@ export default function TabOneScreen() {
   //     console.error('Error adding document: ', error);
   //   }
   // };
+  // const testUserList = [ 
+  //   generateTestUserData(),
+  //   generateTestUserData(),
+
+  // ];
+  // Refactor above
+  const testUserList = [];
+  for (let i = 0; i < 10; i++) {
+    testUserList.push(generateTestUserData());
+  }
+  
+
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      {/* <Button title="Add Document" onPress={addDocument} /> */}
-      <ProfileCard />
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+      <FlatList
+        style={{ width: '100%' }}
+        data={testUserList}
+        renderItem={({ item }) => <ProfileCard user={item} />}
+        keyExtractor={(item, index) => item.id || index.toString()}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+      />
     </View>
   );
 }
@@ -30,16 +45,11 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    flexGrow: 1,
     justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    alignItems:'center',
   },
   separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+    height: 10
   },
 });
