@@ -79,7 +79,7 @@ const ProfileSettings = () => {
         onChange={setSearchRadius}
         label="Search Radius:"
         readoutPrefix="Within"
-        readoutSuffix="km" />
+        readoutSuffix="km of your courts" />
       
 
     </View>
