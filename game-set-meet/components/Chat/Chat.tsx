@@ -2,12 +2,10 @@ import { useGlobalSearchParams, useNavigation } from "expo-router";
 import { MonoText, MonoTextSubHeader } from "../StyledText";
 import { View } from "../Themed";
 import { useLayoutEffect, useState } from "react";
-import { Avatar } from "react-native-elements";
 import InfoIcon from "../Modal/InfoIcon";
 import ChatUserSummary from "./ChatUserSummary";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
-import { KeyboardAvoidingView, Platform } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const Chat = () => {
@@ -32,15 +30,19 @@ const Chat = () => {
   }, [navigation, userJson]);
   
   return (
-      <View style={{flex: 1}}>
-        <ChatUserSummary user={user} />
-        <KeyboardAwareScrollView style={{flex: 1}} extraScrollHeight={90}>
-          <View style={{flex: 1, flexGrow: 1}}>
-            <ChatMessages />
-          </View>
-          <ChatInput />
-        </KeyboardAwareScrollView>
-      </View>
+    <View style={{flex: 1}}>
+      <ChatUserSummary user={user} />
+      <KeyboardAwareScrollView 
+        style={{flex: 1}}
+        contentContainerStyle={{flex: 1}} 
+        extraScrollHeight={20}>
+        <View style={{flex: 1, flexGrow: 1}}>
+
+          <ChatMessages />
+        </View>
+        <ChatInput />
+      </KeyboardAwareScrollView>
+    </View>
   );
 }
 

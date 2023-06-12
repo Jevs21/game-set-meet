@@ -57,10 +57,11 @@
 
 
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity } from 'react-native';
+import { View, TextInput, TouchableOpacity, useColorScheme } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useThemeColor } from '../Themed';
 
 const ChatInput = () => {
   const [message, setMessage] = useState('');
@@ -71,26 +72,30 @@ const ChatInput = () => {
     setMessage('');
   };
 
+  // const scheme = useColorScheme();
+  const borderColor = useThemeColor({ light: Colors.light.borderColor, dark: Colors.dark.borderColor }, 'borderColor');
+  const backgroundColor = useThemeColor({ light: Colors.light.background, dark: Colors.dark.background }, 'background');
   return (
     <View style={{
-      flex: 1,
       flexDirection: 'row', 
       alignItems: 'center', 
-      paddingHorizontal: 10,
+      paddingHorizontal: 15,
       paddingVertical: 5,
-      borderTopColor: Colors.light.borderColor,
-      borderTopWidth: 1,
-      backgroundColor: Colors.light.background
+      paddingBottom: 10,
+      borderTopColor: borderColor,
+      borderTopWidth: 2,
+      backgroundColor
     }}>
       <TextInput 
         style={{
           flex: 1,
+          height: 40,
           paddingHorizontal: 10,
-          paddingVertical: 5,
+          paddingVertical: 10,
           borderRadius: 20,
           borderWidth: 1,
-          borderColor: Colors.light.borderColor,
-          backgroundColor: Colors.light.tint
+          borderColor: borderColor,
+          backgroundColor
         }}
         placeholder="Type a message"
         value={message}
@@ -105,7 +110,7 @@ const ChatInput = () => {
         }}
         onPress={sendMessage}
       >
-        <MaterialIcons name="send" size={24} color={Colors.light.text} />
+        <MaterialIcons name="send" size={20} color={Colors.light.text} />
       </TouchableOpacity>
     </View>
   );
@@ -113,3 +118,7 @@ const ChatInput = () => {
 
 
 export default ChatInput;
+
+function useStyle() {
+  throw new Error('Function not implemented.');
+}
