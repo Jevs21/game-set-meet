@@ -6,7 +6,6 @@
 import { Text as DefaultText, useColorScheme, View as DefaultView, TouchableOpacity } from 'react-native';
 
 import Colors from '../constants/Colors';
-import { Button } from 'react-native-elements';
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
@@ -41,8 +40,13 @@ export function Text(props: TextProps) {
 
 export function View(props: ViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-  // const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
-  const backgroundColor = 'transparent';
+  let backgroundColor;
+  if (lightColor || darkColor) {
+    backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+  } else {
+    backgroundColor = 'transparent';
+  }
+
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
 
@@ -95,4 +99,5 @@ export function Separator(props: ViewProps) {
     opacity: 0.5,
   }} />;
 }
+
 

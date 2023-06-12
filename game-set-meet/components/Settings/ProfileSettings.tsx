@@ -46,8 +46,6 @@ const ProfileSettings = () => {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.canceled) {
       console.log(result.assets[0].uri);
       // setImgUrl(result.assets[0].uri);

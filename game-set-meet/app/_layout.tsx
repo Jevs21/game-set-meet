@@ -9,6 +9,7 @@ import { Provider, useDispatch } from 'react-redux';
 import { setUserData } from '../global/userData/actions';
 import store from '../global/store';
 import generateTestUserData from '../global/testDataGenerator';
+import ChatStackScreen from '../components/Chat/ChatStackScreen';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -56,6 +57,7 @@ function RootLayoutNav() {
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+          <ChatStackScreen />
         </Stack>
       </ThemeProvider>
     </>

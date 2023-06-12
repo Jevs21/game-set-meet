@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../global/store";
 import { Text, StyleSheet, Dimensions, Platform } from "react-native";
-import { BaseText, MonoText, MonoTextHeader } from "../StyledText";
+import { BaseText, MonoText, MonoTextHeader, MonoTextSubHeader } from "../StyledText";
 import { Avatar, Button } from "react-native-elements";
 import ProfileCardAvailability from "./ProfileCardAvailability";
 import ProfileCardSportsList from "./ProfileCardSportsList";
 import ProfileCardCourtsList from "./ProfileCardCourtsList";
 import { View, Card, Separator } from "../Themed";
+import { useState } from "react";
 
 
 
@@ -15,6 +16,12 @@ interface ProfileCardProps {
 }
 
 const ProfileCard = ({user}: ProfileCardProps) => {
+  const [hasMatchSent, setHasMatchSent] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
+  const playUser = (user: UserData) => {
+    setHasMatchSent(true);
+    console.log("Playing user: " + user.name);
+  }
   // Get user data from global store
   const store = useSelector((state: RootState) => state.userData); 
   return (
@@ -27,7 +34,7 @@ const ProfileCard = ({user}: ProfileCardProps) => {
       </View>
 
       <View style={{ marginVertical: 20, marginHorizontal: 5 }}>
-        <MonoText>{user.bio}</MonoText>
+        <MonoTextSubHeader>{user.bio}</MonoTextSubHeader>
       </View>
 
       <Separator />
@@ -38,7 +45,11 @@ const ProfileCard = ({user}: ProfileCardProps) => {
       </View>
       
       <ProfileCardAvailability availability={user.availability} /> 
-      <Button title="Play" buttonStyle={styles.playButton} />
+      { hasMatchSent ? (
+        <Text>Match sent!</Text> 
+      ): (
+        <Button title="Play" buttonStyle={styles.playButton} onPress={() => playUser(user)}/>
+      )}
       {/* </Card> */}
     </Card>
     

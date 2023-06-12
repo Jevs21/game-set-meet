@@ -7,8 +7,11 @@ interface UserData {
   sports: SportData[];
   courts: CourtData[];
   availability: boolean[][];
-  availabilityStr: string;
-  connections: number;
+}
+
+interface LoggedUserData extends UserData {
+  email: string;
+  connections: UserData[];
 }
 
 interface SportData {
@@ -24,5 +27,13 @@ interface CourtData {
   address: string;
   lat: number;
   lng: number;
+}
+
+interface MessageData {
+  id: string;
+  senderId: string;
+  receiverId: string;
+  content: string;
+  timestamp: number;
 }
 

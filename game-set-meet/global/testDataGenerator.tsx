@@ -157,6 +157,4 @@ function generateTestUserData() {
   return userData;
 }
 
-console.log(generateTestUserData());
-
 export default generateTestUserData;

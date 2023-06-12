@@ -43,12 +43,13 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 10
+    marginVertical: 10,
+    marginLeft: 5,
+    marginRight: 15,
   },
   rowHeader: {
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginRight: 5,
   },
   column: {
     alignItems: 'center',
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 15,
     borderRadius: 2,
-    marginVertical: 4,
+    marginVertical: 2,
   },
   available: {
     backgroundColor: 'rgba(0, 255, 0, 0.25)',
