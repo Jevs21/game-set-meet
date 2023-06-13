@@ -1,13 +1,10 @@
 import { FlatList, StyleSheet } from "react-native";
-import generateTestUserData from "../../global/testDataGenerator";
+import { generateUsersData } from "../../global/testDataGenerator";
 import { Separator, View } from "../Themed";
 import ConnectionListItem from "./ConnectionListItem";
 
 const Connections = () => {
-  const testUserList = [];
-  for (let i = 0; i < 10; i++) {
-    testUserList.push(generateTestUserData());
-  }
+  const testUserList = generateUsersData();
   
 
 

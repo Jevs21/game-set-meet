@@ -3,32 +3,17 @@ import { Button, FlatList, StyleSheet } from 'react-native';
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Separator, Text, View } from '../../components/Themed';
 import ProfileCard from '../../components/ProfileCard/ProfileCard';
-import generateTestUserData from '../../global/testDataGenerator';
+import { generateUsersData } from '../../global/testDataGenerator';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function TabOneScreen() {
-  // const addDocument = async () => {
-  //   try {
-  //     await addDoc(collection(db, 'test'), {
-  //       name: 'Test Document',
-  //     });
-  //     console.log('Document added!');
-  //   } catch (error) {
-  //     console.error('Error adding document: ', error);
-  //   }
-  // };
-  // const testUserList = [ 
-  //   generateTestUserData(),
-  //   generateTestUserData(),
-
-  // ];
-  // Refactor above
-  const testUserList = [];
-  for (let i = 0; i < 10; i++) {
-    testUserList.push(generateTestUserData());
-  }
-  
-
-
+  const testUserList = generateUsersData();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // Fetch feed from store
+    dispatch({ type: 'feedData/fetchFeed' });
+  }, []);
   return (
     <View style={styles.container}>
       <FlatList

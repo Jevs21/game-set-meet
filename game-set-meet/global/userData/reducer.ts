@@ -2,7 +2,7 @@ import { UserDataActionTypes, SET_USER_DATA } from './types';
 import { AnyAction } from 'redux';
 
 interface UserDataState {
-  userData: UserData | null;
+  userData: LoggedUserData | null;
 }
 
 const initialState: UserDataState = {

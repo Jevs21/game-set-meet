@@ -8,25 +8,30 @@ interface UserData {
   courts: CourtData[];
   availability: boolean[][];
 }
-
-interface LoggedUserData extends UserData {
-  email: string;
-  connections: UserData[];
-}
-
 interface SportData {
   id: string;
   name: string;
   icon: string;
   skillLevel: string;
 }
-
 interface CourtData {
   id: string;
   name: string;
   address: string;
   lat: number;
   lng: number;
+}
+
+interface LoggedUserData extends UserData {
+  email: string;
+  connections: ConnectionData[];
+}
+
+interface ConnectionData {
+  id: string;
+  connectionId: string;
+  userId: string;
+  lastMessage: MessageData;
 }
 
 interface MessageData {

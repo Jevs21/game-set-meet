@@ -8,7 +8,7 @@ import { useColorScheme } from 'react-native';
 import { Provider, useDispatch } from 'react-redux';
 import { setUserData } from '../global/userData/actions';
 import store from '../global/store';
-import generateTestUserData from '../global/testDataGenerator';
+import { generateLoggedUserData, generateUsersData } from '../global/testDataGenerator';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -46,8 +46,9 @@ function RootLayoutNav() {
 
   useEffect(() => {
     // Load redux store
-    const testUserData = generateTestUserData();
-    dispatch(setUserData(testUserData));
+    const testUserData = generateUsersData();
+    const loggedUserData = generateLoggedUserData();
+    dispatch(setUserData(loggedUserData));
   }, [dispatch]);
 
   return (
