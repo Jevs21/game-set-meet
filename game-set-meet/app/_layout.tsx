@@ -9,6 +9,7 @@ import { Provider, useDispatch } from 'react-redux';
 import { setUserData } from '../global/userData/actions';
 import store from '../global/store';
 import { generateLoggedUserData, generateUsersData } from '../global/testDataGenerator';
+import { setFeedData } from '../global/feedData/action';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -49,6 +50,7 @@ function RootLayoutNav() {
     const testUserData = generateUsersData();
     const loggedUserData = generateLoggedUserData();
     dispatch(setUserData(loggedUserData));
+    dispatch(setFeedData(testUserData));
   }, [dispatch]);
 
   return (
