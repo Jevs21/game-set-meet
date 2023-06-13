@@ -58,10 +58,8 @@
 
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, useColorScheme } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useThemeColor } from '../Themed';
+import { Icon, useThemeColor } from '../Themed';
 
 const ChatInput = () => {
   const [message, setMessage] = useState('');
@@ -80,8 +78,8 @@ const ChatInput = () => {
       flexDirection: 'row', 
       alignItems: 'center', 
       paddingHorizontal: 15,
-      paddingVertical: 5,
-      paddingBottom: 10,
+      paddingTop: 10,
+      paddingBottom: 25,
       borderTopColor: borderColor,
       borderTopWidth: 2,
       backgroundColor
@@ -101,16 +99,12 @@ const ChatInput = () => {
         value={message}
         onChangeText={setMessage}
       />
-      <TouchableOpacity 
-        style={{
-          marginLeft: 5,
-          padding: 10,
-          borderRadius: 25,
-          backgroundColor: Colors.light.borderColor
-        }}
-        onPress={sendMessage}
-      >
-        <MaterialIcons name="send" size={20} color={Colors.light.text} />
+      <TouchableOpacity onPress={sendMessage} style={{
+        padding: 5,
+        margin: 5,
+        borderRadius: 10,
+      }}>
+        <Icon name="send" size={24} />
       </TouchableOpacity>
     </View>
   );
@@ -118,7 +112,3 @@ const ChatInput = () => {
 
 
 export default ChatInput;
-
-function useStyle() {
-  throw new Error('Function not implemented.');
-}

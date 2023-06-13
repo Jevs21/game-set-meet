@@ -38,9 +38,8 @@ import React, { useRef, useState } from 'react';
 import { Animated, TouchableOpacity, ScrollView } from 'react-native';
 import { Avatar } from "react-native-elements";
 import { MonoText, MonoTextSubHeader } from "../StyledText";
-import { View } from "../Themed";
+import { Icon, View } from "../Themed";
 import Colors from '../../constants/Colors';
-import { FontAwesome } from '@expo/vector-icons';
 
 interface ChatUserSummaryProps {
   user: UserData | null;
@@ -89,13 +88,14 @@ const ChatUserSummary = ({user}: ChatUserSummaryProps) => {
         </ScrollView>
       </Animated.View>
 
-      <TouchableOpacity style={{ height: 40, width: '100%' }} onPress={toggleView}>
+      <TouchableOpacity style={{ height: 30, width: '100%' }} onPress={toggleView}>
         <View 
           lightColor={Colors.light.cardBackground} 
           darkColor={Colors.dark.cardBackground}
           style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
           {/* <MonoText>{isExpanded ? 'Hide Profile' : 'Show Profile'}</MonoText> */}
-          <FontAwesome name={isExpanded ? 'chevron-up' : 'chevron-down'} size={16} />
+          <Icon name={isExpanded ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={16} />
+
         </View>
       </TouchableOpacity>
     </View>

@@ -4,8 +4,9 @@
  */
 
 import { Text as DefaultText, useColorScheme, View as DefaultView, TouchableOpacity } from 'react-native';
-
+import { MaterialIcons } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
+import { Icon as RNEIcon, IconProps } from 'react-native-elements';
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
@@ -30,6 +31,7 @@ export type TextProps = ThemeProps & DefaultText['props'];
 export type ViewProps = ThemeProps & DefaultView['props'];
 export type CardProps = ThemeProps & DefaultView['props'];
 export type ChipProps = ThemeProps & DefaultView['props'] & TouchableOpacity['props'];
+export type CustomIconProps = ThemeProps & IconProps;
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
@@ -99,5 +101,13 @@ export function Separator(props: ViewProps) {
     opacity: 0.5,
   }} />;
 }
+
+export function Icon(props: CustomIconProps) {
+  const { style, lightColor, darkColor, name, size, ...otherProps } = props;
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+  
+  return <RNEIcon type='material' name={name} size={size} color={color} style={style} {...otherProps} />;
+}
+
 
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { MonoText } from "../StyledText";
 import { Separator, View } from "../Themed";
+import ChatBubble from "./ChatBubble";
 
 const ChatMessages = () => {
   const [messages, setMessages] = useState<MessageData[]>([]);
@@ -38,41 +39,11 @@ const ChatMessages = () => {
     <View style={{flex: 1 }}>
       {messages.map((message, index) => {
         return (
-          <View key={index} style={[styles.chatBubble, index % 2 === 0 ? styles.chatBubbleLeft : styles.chatBubbleRight]}>
-            <MonoText>{message.content}</MonoText>
-          </View>
+          <ChatBubble key={index} index={index} left={index % 2 == 0} message={message}/>
         )
       })}
-
-      {/* <FlatList
-        data={messages}
-        style={{ width: '100%' }}
-        renderItem={({ item }) => {
-          return (
-            <MonoText>{item.content}</MonoText>
-          )
-        }}
-        keyExtractor={(item, index) => item.id || index.toString()}
-        ItemSeparatorComponent={() => <Separator />}
-      /> */}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  chatBubble: {
-    backgroundColor: '#EFEFEF',
-    borderRadius: 20,
-    padding: 10,
-    margin: 10,
-    maxWidth: '80%',
-  },
-  chatBubbleLeft: {
-    alignSelf: 'flex-start',
-  },
-  chatBubbleRight: {
-    alignSelf: 'flex-end',
-  },
-});
 
 export default ChatMessages;

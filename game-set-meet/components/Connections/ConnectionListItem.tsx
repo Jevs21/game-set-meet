@@ -1,8 +1,8 @@
-import { ListItem, Avatar, Icon } from "react-native-elements";
-import { View } from "../Themed";
-import { MonoTextSubHeader } from "../StyledText";
+import { ListItem, Avatar } from "react-native-elements";
+import { Icon, View } from "../Themed";
+import { MonoText, MonoTextSubHeader } from "../StyledText";
 import { TouchableOpacity } from "react-native";
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 
 interface ConnectionListItemProps {
   user: UserData;
@@ -10,31 +10,50 @@ interface ConnectionListItemProps {
 
 const ConnectionListItem = (props: ConnectionListItemProps) => {
   const { user } = props;
+  const lastMessage = "asdf";
+  const { push } = useRouter(); // use the hook to get the push function
+
   return (
-    <TouchableOpacity>
-      <Link href={{ pathname: '/chat', params: {
+    <TouchableOpacity
+      style={{ flex: 1 }}
+      onPress={() => {
+        // Navigate to the chat screen with parameters
+        push({
+          pathname: '/chat', 
+          params: {
+          // query: {
+            userJson: JSON.stringify(user)
+          },
+        });
+      }}
+    >
+      {/* <Link href={{ pathname: '/chat', params: {
         userJson: JSON.stringify(user)
-      }}}>
+      }}} style={{
+        flex: 1,
+      }}> */}
         <View style={{
-          flex: 1, flexDirection: 'row', 
+          flex: 1, 
+          flexDirection: 'row', 
           alignItems: 'center',
-          justifyContent: 'space-between',
-          height: 50,
-          maxHeight: 50,
+          // justifyContent: 'center',
+          padding: 2,
+          paddingHorizontal: 20,
+          maxHeight: 80,
         }}>
-          <Link href={{ pathname: '/modal', params: { 
-            type: 'user', 
-            userJson: JSON.stringify(user) 
-            } 
+          
+          <Avatar rounded size={'medium'} source={{ uri: user.imgUrl }} />
+          <View style={{
+            flex: 1,
+            flexDirection: 'column',
+            width: '100%', 
           }}>
-            <Avatar rounded size={'medium'} source={{ uri: user.imgUrl }} />
-          </Link>
-          <View>
             <MonoTextSubHeader>{user.name}</MonoTextSubHeader>
+            <MonoText>{lastMessage}</MonoText>
           </View>
-          <Icon name='chevron-right' type='font-awesome' size={20} />
+          <Icon name={'keyboard-arrow-right'} size={20} /> 
         </View>
-      </Link>
+      {/* </Link> */}
     </TouchableOpacity>
   );
 }

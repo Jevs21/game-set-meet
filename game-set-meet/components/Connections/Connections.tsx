@@ -16,9 +16,10 @@ const Connections = () => {
       <FlatList
         style={{ width: '100%' }}
         data={testUserList}
+        bounces={false}
         renderItem={({ item }) => <ConnectionListItem user={item} />}
         keyExtractor={(item, index) => item.id || index.toString()}
-        ItemSeparatorComponent={() => <Separator />}
+        ItemSeparatorComponent={() => <Separator style={{marginVertical: 0}} />}
       />
     </View>
   );
