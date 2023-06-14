@@ -4,10 +4,9 @@
  */
 
 import { Text as DefaultText, useColorScheme, View as DefaultView, TouchableOpacity } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
-import { Icon as RNEIcon, IconProps } from 'react-native-elements';
-
+// import { Icon as RNEIcon, IconProps } from 'react-native-vector-icons';
+import { Icon } from 'react-native-vector-icons';
 export function useThemeColor(
   props: { light?: string; dark?: string },
   colorName: keyof typeof Colors.light & keyof typeof Colors.dark
@@ -31,7 +30,8 @@ export type TextProps = ThemeProps & DefaultText['props'];
 export type ViewProps = ThemeProps & DefaultView['props'];
 export type CardProps = ThemeProps & DefaultView['props'];
 export type ChipProps = ThemeProps & DefaultView['props'] & TouchableOpacity['props'];
-export type CustomIconProps = ThemeProps & IconProps;
+export type CustomIconProps = ThemeProps & FontAwesome5IconProps;
+// export type CustomIconProps = ThemeProps & IconProps;
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
@@ -79,8 +79,7 @@ export function Chip(props: ChipProps) {
         justifyContent: 'space-between',
         backgroundColor: '#4B9CD3',
         borderRadius: 5,
-        paddingHorizontal: 10,
-        paddingVertical: 5,
+        paddingVertical: 6,
         marginRight: 15,
         marginLeft: 5,
         marginVertical: 5,
@@ -106,7 +105,8 @@ export function Icon(props: CustomIconProps) {
   const { style, lightColor, darkColor, name, size, ...otherProps } = props;
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
   
-  return <RNEIcon type='material' name={name} size={size} color={color} style={style} {...otherProps} />;
+  return <RNEIcon name={name} size={size} color={color} {...otherProps} />;
+  // return <RNEIcon name={name} size={size} color={color} style={style} {...otherProps} />;
 }
 
 
