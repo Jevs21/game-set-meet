@@ -1,9 +1,9 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable, useColorScheme } from 'react-native';
+import { Tabs } from 'expo-router';
+import { useColorScheme } from 'react-native';
 
 import Colors from '../../constants/Colors';
-import InfoIcon from '../../components/Modal/InfoIcon';
+import HeaderIconButton from '../../components/HeaderIconButton';
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -28,16 +28,19 @@ export default function TabLayout() {
         options={{
           title: 'Find Players',
           tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
-          headerRight: () => (
-            <InfoIcon />
-          ),
+          // headerRight: () => (
+          //   <HeaderIconButton href="/modal" name="info" />
+          // ),
         }}
       />
       <Tabs.Screen
         name="two"
         options={{
-          title: 'Connections',
-          tabBarIcon: ({ color }) => <TabBarIcon name="users" color={color} />,
+          title: 'Chats',
+          tabBarIcon: ({ color }) => <TabBarIcon name="comment" color={color} />,
+          headerRight: () => (
+            <HeaderIconButton href="/modal" name="add" />
+          ),
         }}
       />
       <Tabs.Screen

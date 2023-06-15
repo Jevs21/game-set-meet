@@ -29,8 +29,8 @@ interface LoggedUserData extends UserData {
 
 interface ConnectionData {
   id: string;
-  connectionId: string;
   userId: string;
+  connectionUsers: UserData[];
   lastMessage: MessageData;
 }
 

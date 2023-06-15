@@ -1,3 +1,5 @@
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+
 const courts: CourtData[] = [
   {
     id: "Court1",
@@ -134,61 +136,119 @@ const sports: SportData[] = [
   }
 ];
 
+const pronouns: string[] = [
+  "He/Him",
+  "She/Her",
+  "They/Them",
+  "Ze/Zir",
+  "Ze/Hir",
+  "Xe/Xem",
+  "Xe/Xyr",
+];
+
+const names: string[] = [
+  "John Doe",
+  "Emily Smith",
+  "Michael Brown",
+  "Olivia Johnson",
+  "Robert Davis",
+  "Isabella Miller",
+  "William Wilson",
+  "Sophia Taylor",
+  "David Anderson",
+  "Ava Thomas",
+  "Joseph Jackson",
+  "Mia Harris",
+  "James Martin",
+  "Charlotte Thompson",
+  "Daniel Rodriguez",
+  "Amelia Martinez",
+  "Matthew Garcia",
+  "Harper Gonzalez",
+  "Anthony Hernandez",
+  "Ella Perez"
+];
+
+const bios: string[] = [
+  "I love playing Tennis. Been playing for 5 years.",
+  "Outdoor enthusiast with a knack for extreme sports. I've bungee jumped, skydived, and mountain biked. The adrenaline rush is life!",
+  "Basketball has been my sanctuary for years. There's nothing like the sound of the swoosh as the ball hits nothing but net.",
+  "Runner and triathlon participant. Completed 3 full marathons and training for my first Ironman. The journey never stops.",
+  "Former collegiate soccer player. Coaching kids now, passing on the love of the game. Also, a big fan of European football leagues.",
+  "Swimming is my passion. Whether it's a relaxing swim at the beach or intense laps in the pool, I find peace in the water.",
+  "Golf enthusiast - I love the challenge of improving my game and meeting new people on the course. Here for any golfing tips and friendly banter!",
+  "Fitness fanatic who loves to lift weights and enjoys high-intensity workouts. Also a certified yoga teacher to balance it all out.",
+  "Experienced mountaineer, conquered some of the highest peaks. The journey to the summit, for me, is a metaphor for life.",
+  "Huge fan of motorsports, Formula 1 in particular. The speed, the technology, the strategy - it's like chess at 200 mph!"
+];
+
+
+function getRandomSports(n: number = 3) {
+  const shuffled = sports.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, n);
+}
+function getRandomCourts(n: number = 3) {
+  const shuffled = courts.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, n);
+}
+function getRandomPronoun() {
+  const shuffled = pronouns.sort(() => 0.5 - Math.random());
+  return shuffled[0];
+}
+function getRandomBio() {
+  const shuffled = bios.sort(() => 0.5 - Math.random());
+  return shuffled[0];
+}
+function getRandomName() {
+  const shuffled = names.sort(() => 0.5 - Math.random());
+  return shuffled[0];
+}
+function getRandomAvailability() {
+  let avail: boolean[][] = [];
+  for (let i = 0; i < 7; i++) {
+    avail.push([(Math.random() > 0.5), (Math.random() > 0.5), (Math.random() > 0.5)]);
+  }
+  return avail;
+}
+
 // Generate Users Data
 
-export function generateUsersData(): UserData[] {
-  return [
-    {
-      id: "User1",
-      name: "John Doe",
-      pronouns: "He/Him",
-      imgUrl: "https://i.pravatar.cc/300?img=1",
-      bio: "I love playing Tennis. Been playing for 5 years.",
-      sports: [
-        {
-          id: "Sport1",
-          name: "Tennis",
-          icon: "tennis-ball",
-          skillLevel: "3"
-        },
-        // You can add more sports here
-      ],
-      courts: [
-        {
-          id: "Court1",
-          name: "Great Pyramid of Giza",
-          address: "Great Pyramid of Giza, Egypt",
-          lat: 44.41611704341544,
-          lng: -79.7036701416235
-        },
-        // You can add more courts here
-      ],
-      availability: [
-        [true, false, true],
-        // Add more days availability here
-      ]
-    },
-    // Add more users here
-  ];
+export function generateUsersData(n: number = 10): UserData[] {
+  let users: UserData[] = [];
+  for (let i = 0; i < n; i++) {
+    users.push({
+      id: `User${i + 1}`,
+      name: getRandomName(),
+      pronouns: getRandomPronoun(),
+      imgUrl: `https://i.pravatar.cc/300?img=${i + 1}`,
+      bio: getRandomBio(),
+      sports: getRandomSports(),
+      courts: getRandomCourts(),
+      availability: getRandomAvailability()
+    });
+  }
+  return users;
 }
 
 // Generate Connection Data
-export function generateConnectionData(): ConnectionData[] {
-  return [
-    {
-      id: "Connection1",
-      connectionId: "User1",
+export function generateConnectionData(n: number = 5): ConnectionData[] {
+  const connections: ConnectionData[] = [];
+  for (let i = 1; i < n; i++) {
+    const users = generateUsersData((Math.random() > 0.5) ? 1 : 2);
+    connections.push({
+      id: `Connection${i + 1}`,
       userId: "LoggedUser1",
+      connectionUsers: users,
       lastMessage: {
-        id: "Message1",
-        senderId: "User1",
+        id: `Message${i + 1}`,
+        senderId: `User${i + 1}`,
         receiverId: "LoggedUser1",
         content: "Hello there!",
         timestamp: 1622462400000 // this corresponds to May 31, 2021
       },
-    },
-    // Add more connections here
-  ];
+    });
+  }
+  return connections;
 }
 
 // Generate Logged User Data
@@ -199,29 +259,9 @@ export function generateLoggedUserData(): LoggedUserData {
     pronouns: "She/Her",
     imgUrl: "https://i.pravatar.cc/300?img=2",
     bio: "I love playing Badminton. Been playing for 7 years.",
-    sports: [
-      {
-        id: "Sport2",
-        name: "Badminton",
-        icon: "badminton-ball",
-        skillLevel: "4"
-      },
-      // You can add more sports here
-    ],
-    courts: [
-      {
-        id: "Court2",
-        name: "Statue of Liberty",
-        address: "Statue of Liberty, USA",
-        lat: 40.6892,
-        lng: -74.0445
-      },
-      // You can add more courts here
-    ],
-    availability: [
-      [false, true, false],
-      // Add more days availability here
-    ],
+    sports: getRandomSports(),
+    courts: getRandomCourts(),
+    availability: getRandomAvailability(),
     email: "jane.doe@example.com",
     connections: generateConnectionData(),
   };

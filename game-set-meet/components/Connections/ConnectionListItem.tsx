@@ -3,15 +3,23 @@ import { Icon, View } from "../Themed";
 import { MonoText, MonoTextSubHeader } from "../StyledText";
 import { TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
+import { useMemo } from "react";
 
 interface ConnectionListItemProps {
-  user: UserData;
+  users: UserData[];
 }
 
 const ConnectionListItem = (props: ConnectionListItemProps) => {
-  const { user } = props;
+  const { users } = props;
+  const user = users[0];
   const lastMessage = "asdf";
   const { push } = useRouter(); // use the hook to get the push function
+
+  const name = useMemo(() => {
+    return users.map((user) => {
+      return (user.name.includes(' ')) ? user.name.split(' ')[0] : user.name;
+    }).join(', ');
+  }, [users]);
 
   return (
     <TouchableOpacity
@@ -21,7 +29,6 @@ const ConnectionListItem = (props: ConnectionListItemProps) => {
         push({
           pathname: '/chat', 
           params: {
-          // query: {
             userJson: JSON.stringify(user)
           },
         });
@@ -48,7 +55,7 @@ const ConnectionListItem = (props: ConnectionListItemProps) => {
             flexDirection: 'column',
             width: '100%', 
           }}>
-            <MonoTextSubHeader>{user.name}</MonoTextSubHeader>
+            <MonoTextSubHeader>{name}</MonoTextSubHeader>
             <MonoText>{lastMessage}</MonoText>
           </View>
           <Icon name={'keyboard-arrow-right'} size={20} /> 

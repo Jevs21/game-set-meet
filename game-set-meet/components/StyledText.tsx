@@ -5,7 +5,7 @@ export function MonoText(props: TextProps) {
 }
 
 export function MonoTextSubHeader(props: TextProps) {
-  return <Text {...props} style={[props.style, { fontFamily: 'SpaceMono', fontSize: 22, fontWeight: '500', marginBottom: 5 }]} />;
+  return <Text {...props} style={[props.style, { fontFamily: 'SpaceMono', fontSize: 21, fontWeight: "bold", marginBottom: 4 }]} />;
 }
 
 export function MonoTextHeader(props: TextProps) {
