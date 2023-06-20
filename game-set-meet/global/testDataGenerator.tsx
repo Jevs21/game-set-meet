@@ -266,3 +266,15 @@ export function generateLoggedUserData(): LoggedUserData {
     connections: generateConnectionData(),
   };
 }
+
+
+// export function generateMasterSportsList(): SportInformationData[] {
+//   return [
+//     {
+//       id: "Sport1",
+//       name: "Badminton",
+//       icon: "badminton-icon",
+//       skillLevels: [],
+      
+//     }
+//   ]

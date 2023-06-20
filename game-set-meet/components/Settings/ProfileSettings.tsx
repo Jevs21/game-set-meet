@@ -5,13 +5,12 @@ import { RootState } from "../../global/store";
 import { Button, Avatar, Slider, Divider } from "react-native-elements";
 import { MonoText, MonoTextHeader } from "../StyledText";
 import ProfileCardAvailability from "../ProfileCard/ProfileCardAvailability";
-import ProfileCardCourtsList from "../ProfileCard/ProfileCardCourtsList";
-import ProfileCardSportsList from "../ProfileCard/ProfileCardSportsList";
 import ProfileCard from "../ProfileCard/ProfileCard";
 import EditTextField from "../EditTextField";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import CustomSlider from "../CustomSlider";
+import ProfileCardChipList from "../ProfileCard/ProfileCardChipList";
 
 
 const ProfileSettings = () => {
@@ -67,8 +66,8 @@ const ProfileSettings = () => {
         <EditTextField value={bio} label="Bio:" onChange={() => console.log("CHnaged!")} />
       </View>
       <View style={{ flexDirection: 'row', paddingTop: 20 }}>
-        <ProfileCardSportsList sports={userData.sports} />
-        <ProfileCardCourtsList courts={userData.courts} />
+        <ProfileCardChipList type="sport" list={userData.sports} add/>
+        <ProfileCardChipList type="court" list={userData.courts} add/>
       </View>
 
       <Divider style={{ height: 40 }} />

@@ -4,10 +4,9 @@ import { Text, StyleSheet, Dimensions, Platform } from "react-native";
 import { BaseText, MonoText, MonoTextHeader, MonoTextSubHeader } from "../StyledText";
 import { Avatar, Button } from "react-native-elements";
 import ProfileCardAvailability from "./ProfileCardAvailability";
-import ProfileCardSportsList from "./ProfileCardSportsList";
-import ProfileCardCourtsList from "./ProfileCardCourtsList";
 import { View, Card, Separator } from "../Themed";
 import { useState } from "react";
+import ProfileCardChipList from "./ProfileCardChipList";
 
 
 
@@ -40,8 +39,8 @@ const ProfileCard = ({user}: ProfileCardProps) => {
       <Separator />
 
       <View style={styles.subview}>
-        <ProfileCardSportsList sports={user.sports}/>
-        <ProfileCardCourtsList courts={user.courts}/>
+        <ProfileCardChipList type="sport" list={user.sports}/>
+        <ProfileCardChipList type="court" list={user.courts}/>
       </View>
       
       <ProfileCardAvailability availability={user.availability} /> 

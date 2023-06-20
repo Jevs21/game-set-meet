@@ -3,8 +3,7 @@ import { Animated, TouchableOpacity, ScrollView, StyleSheet } from 'react-native
 import { MonoText } from "../StyledText";
 import { Icon, View } from "../Themed";
 import Colors from '../../constants/Colors';
-import ProfileCardSportsList from '../ProfileCard/ProfileCardSportsList';
-import ProfileCardCourtsList from '../ProfileCard/ProfileCardCourtsList';
+import ProfileCardChipList from '../ProfileCard/ProfileCardChipList';
 
 interface ChatUserSummaryProps {
   user: UserData | null;
@@ -39,8 +38,8 @@ const ChatUserSummary = ({user}: ChatUserSummaryProps) => {
             height: 200,
             alignItems: 'center'
           }}>
-            <ProfileCardSportsList sports={user?.sports || null} />
-            <ProfileCardCourtsList courts={user?.courts || null} />
+            <ProfileCardChipList type="sport" list={user?.sports || null}/>
+            <ProfileCardChipList type="court" list={user?.courts || null}/>
           </View>
         </ScrollView>
       </Animated.View>

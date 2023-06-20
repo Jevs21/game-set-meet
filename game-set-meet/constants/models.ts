@@ -42,3 +42,18 @@ interface MessageData {
   timestamp: number;
 }
 
+interface SportInformationData {
+  id: string;
+  name: string;
+  icon: string;
+  skillLevels: SkillLevelData[];
+  information: string;
+}
+
+interface SkillLevelData {
+  id: string;
+  name: string;
+  otherName: string;
+  description: string;
+  order: number;
+}

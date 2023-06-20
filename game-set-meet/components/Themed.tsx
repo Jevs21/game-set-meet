@@ -74,16 +74,17 @@ export function Chip(props: ChipProps) {
   const { style, lightColor, darkColor, onPress, ...otherProps } = props;
   return (
     <TouchableOpacity onPress={onPress}>
-      <DefaultView style={{
+      <DefaultView style={[{
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: '#4B9CD3',
+        // backgroundColor: '#4B9CD3',
+        backgroundColor: '#6BAEDB',
         borderRadius: 5,
         paddingVertical: 6,
         marginRight: 15,
         marginLeft: 5,
         marginVertical: 5,
-      }} {...otherProps} />
+      }, style]} {...otherProps} />
     </TouchableOpacity>
   );
 }
@@ -96,7 +97,7 @@ export function Separator(props: ViewProps) {
     height: 1,
     width: '100%',
     backgroundColor: borderColor,
-    marginVertical: 10,
+    marginVertical: 5,
     opacity: 0.5,
   }} />;
 }
