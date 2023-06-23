@@ -53,7 +53,7 @@ interface SportInformationData {
 interface SkillLevelData {
   id: string;
   name: string;
-  otherName: string;
+  otherNames: string[];
   description: string;
   order: number;
 }

@@ -73,68 +73,6 @@ const courts: CourtData[] = [
   }
 ];
 
-const sports: SportData[] = [
-  {
-    id: "Sport1",
-    name: "Tennis",
-    icon: "tennis-icon",
-    skillLevel: "Intermediate"
-  },
-  {
-    id: "Sport2",
-    name: "Soccer",
-    icon: "soccer-icon",
-    skillLevel: "Beginner"
-  },
-  {
-    id: "Sport3",
-    name: "Basketball",
-    icon: "basketball-icon",
-    skillLevel: "Advanced"
-  },
-  {
-    id: "Sport4",
-    name: "Badminton",
-    icon: "badminton-icon",
-    skillLevel: "Intermediate"
-  },
-  {
-    id: "Sport5",
-    name: "Golf",
-    icon: "golf-icon",
-    skillLevel: "Advanced"
-  },
-  {
-    id: "Sport6",
-    name: "Baseball",
-    icon: "baseball-icon",
-    skillLevel: "Beginner"
-  },
-  {
-    id: "Sport7",
-    name: "Volleyball",
-    icon: "volleyball-icon",
-    skillLevel: "Intermediate"
-  },
-  {
-    id: "Sport8",
-    name: "Cricket",
-    icon: "cricket-icon",
-    skillLevel: "Advanced"
-  },
-  {
-    id: "Sport9",
-    name: "Rugby",
-    icon: "rugby-icon",
-    skillLevel: "Beginner"
-  },
-  {
-    id: "Sport10",
-    name: "Table Tennis",
-    icon: "table-tennis-icon",
-    skillLevel: "Intermediate"
-  }
-];
 
 const pronouns: string[] = [
   "He/Him",
@@ -184,6 +122,18 @@ const bios: string[] = [
 
 
 function getRandomSports(n: number = 3) {
+  const masterSports = generateMasterSportsList();
+  let sports = [];
+  for (let i = 0; i < masterSports.length; i++) {
+    const sk: SkillLevelData = masterSports[i].skillLevels[Math.floor(Math.random() * masterSports[i].skillLevels.length)];
+    sports.push({
+      id: masterSports[i].id,
+      name: masterSports[i].name,
+      icon: masterSports[i].icon,
+      skillLevel: sk.name,
+    });
+  }
+
   const shuffled = sports.sort(() => 0.5 - Math.random());
   return shuffled.slice(0, n);
 }
@@ -267,14 +217,114 @@ export function generateLoggedUserData(): LoggedUserData {
   };
 }
 
+const masterSports = [
+  "Aikido",
+  "Archery",
+  "Badminton",
+  "Baseball",
+  "Basketball",
+  "Biathlon",
+  "Billiards",
+  "Bobsleigh",
+  "Boxing",
+  "Canoeing",
+  "Cricket",
+  "Croquet",
+  "Curling",
+  "Cycling",
+  "Darts",
+  "Disc Golf",
+  "Diving",
+  "Dodgeball",
+  "Equestrian",
+  "Fencing",
+  "Field Hockey",
+  "Figure Skating",
+  "Football (American)",
+  "Football (Soccer)",
+  "Frisbee",
+  "Golf",
+  "Gymnastics",
+  "Handball",
+  "Ice Hockey",
+  "Judo",
+  "Karate",
+  "Kayaking",
+  "Kickboxing",
+  "Kitesurfing",
+  "Lacrosse",
+  "Luge",
+  "Marathons",
+  "Mixed Martial Arts (MMA)",
+  "Motocross",
+  "Mountain Biking",
+  "Netball",
+  "Orienteering",
+  "Paddleboarding",
+  "Paintball",
+  "Parkour",
+  "Polo",
+  "Quidditch",
+  "Racquetball",
+  "Rowing",
+  "Rugby",
+  "Sailing",
+  "Skateboarding",
+  "Skiing",
+  "Skydiving",
+  "Snooker",
+  "Snowboarding",
+  "Softball",
+  "Squash",
+  "Surfing",
+  "Swimming",
+  "Table Tennis",
+  "Taekwondo",
+  "Tennis",
+  "Track and Field",
+  "Triathlon",
+  "Ultimate Frisbee",
+  "Volleyball",
+  "Wakeboarding",
+  "Water Polo",
+  "Weightlifting",
+  "Wrestling",
+  "Yoga",
+  "Zumba"
+];
 
-// export function generateMasterSportsList(): SportInformationData[] {
-//   return [
-//     {
-//       id: "Sport1",
-//       name: "Badminton",
-//       icon: "badminton-icon",
-//       skillLevels: [],
-      
-//     }
-//   ]
+export function generateMasterSportsList(): SportInformationData[] {
+  let sports: SportInformationData[] = [];
+  for (let i = 0; i < masterSports.length; i++) {
+    sports.push({
+      id: `Sport${i + 1}`,
+      name: masterSports[i],
+      icon: `${masterSports[i].toLowerCase()}-icon`,
+      skillLevels: [
+        {
+          id: `SkillLevel${i}_1`,
+          name: "Beginner",
+          otherNames: ["Beginner", "Novice", "Newbie"],
+          description: "I'm new to this sport and would like to learn the basics.",
+          order: 0,
+        },
+        {
+          id: `SkillLevel${i}_2`,
+          name: "Intermediate",
+          otherNames: ["Intermediate", "Amateur", "Casual"],
+          description: "I've played this sport before and would like to improve.",
+          order: 1,
+        },
+        {
+          id: `SkillLevel${i}_3`,
+          name: "Advanced",
+          otherNames: ["Advanced", "Expert", "Pro"],
+          description: "I'm very experienced in this sport and would like to play competitively.",
+          order: 2,
+        },
+      ],
+      information: masterSports[i] + " information"
+    });
+  }
+  return sports;
+}

@@ -1,7 +1,8 @@
 import { FlatList, TouchableOpacity, View } from "react-native";
 import { MonoText, MonoTextHeader, MonoTextSubHeader } from "../StyledText";
-import { Separator } from "../Themed";
+import { Chip, Separator } from "../Themed";
 import { useMemo, useState } from "react";
+import { generateMasterSportsList } from "../../global/testDataGenerator";
 
 interface ItemType {
   id: number;
@@ -13,78 +14,22 @@ interface RenderItemProps {
   item: ItemType;
 }
 
+interface SkillItemType extends ItemType {
+  otherNames: string[];
+  description: string;
+}
+
+interface RenderSkillItemProps {
+  item: SkillItemType;
+}
+
 
 
 const ModalAddSport = () => {
   const [sport, setSport] = useState(0);
-  const items = [
-    { 
-        id: 0, 
-        label: 'Archery', 
-        value: '1', 
-        skillLevels: [
-            { id: 0, label: 'Beginner', value: '1' },
-            { id: 1, label: 'Intermediate', value: '2' },
-            { id: 2, label: 'Advanced', value: '3' },
-            { id: 3, label: 'Expert', value: '4' },
-        ]
-    },
-    { 
-        id: 1, 
-        label: 'Baseball', 
-        value: '2', 
-        skillLevels: [
-            { id: 0, label: 'Beginner', value: '1' },
-            { id: 1, label: 'Intermediate', value: '2' },
-            { id: 2, label: 'Advanced', value: '3' },
-            { id: 3, label: 'Expert', value: '4' },
-        ]
-    },
-    {
-        id: 2,
-        label: 'Basketball',
-        value: '3',
-        skillLevels: [
-            { id: 0, label: 'Beginner', value: '1' },
-            { id: 1, label: 'Intermediate', value: '2' },
-            { id: 2, label: 'Advanced', value: '3' },
-            { id: 3, label: 'Expert', value: '4' },
-        ]
-    },
-    {
-        id: 3,
-        label: 'Cricket',
-        value: '4',
-        skillLevels: [
-            { id: 0, label: 'Novice', value: '1' },
-            { id: 1, label: 'Club Player', value: '2' },
-            { id: 2, label: 'Semi-Pro', value: '3' },
-            { id: 3, label: 'Professional', value: '4' },
-        ]
-    },
-    {
-        id: 4,
-        label: 'Football',
-        value: '5',
-        skillLevels: [
-            { id: 0, label: 'Rookie', value: '1' },
-            { id: 1, label: 'Experienced', value: '2' },
-            { id: 2, label: 'Skilled', value: '3' },
-            { id: 3, label: 'Professional', value: '4' },
-        ]
-    },
-    {
-        id: 5,
-        label: 'Golf',
-        value: '6',
-        skillLevels: [
-            { id: 0, label: 'Novice', value: '1' },
-            { id: 1, label: 'Handicap 10+', value: '2' },
-            { id: 2, label: 'Handicap 5+', value: '3' },
-            { id: 3, label: 'Pro', value: '4' },
-        ]
-    },
-];
+  const [skill, setSkill] = useState(0);
+
+  const items = generateMasterSportsList();
 
 
   const skillList = useMemo(() => {
@@ -100,6 +45,19 @@ const ModalAddSport = () => {
     </TouchableOpacity>
   );
 
+  const renderSkillItem = ({ item }: RenderSkillItemProps) => (
+    <TouchableOpacity onPress={() => {
+      setSkill(item.id);
+      console.log(`Selected ${item.value}`)
+    }}>
+      <View>
+        <MonoTextSubHeader style={{paddingVertical: 5, color: item.id === skill ? 'blue' : 'white'}}>{item.label}</MonoTextSubHeader>
+        <MonoText>{item.otherNames.join(", ")}</MonoText>
+        <MonoText>{item.description}</MonoText>
+      </View>
+    </TouchableOpacity>
+  );  
+
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <View style={{flex: 1}}>
@@ -108,7 +66,13 @@ const ModalAddSport = () => {
       <View style={{flex: 2, flexDirection: 'row'}}>
         <View style={{flex: 1, padding: 5}}>
           <FlatList
-            data={items}
+            data={items.map((item, index) => {
+              return {
+                id: index,
+                label: item.name,
+                value: item.id
+              }
+            })}
             renderItem={renderItem}
             // keyExtractor={(item, index) => item.id || index.toString()}
             ItemSeparatorComponent={() => <Separator />}
@@ -116,12 +80,25 @@ const ModalAddSport = () => {
         </View>
         <View style={{flex: 1, padding: 10}}>
           <FlatList
-            data={skillList}
-            renderItem={renderItem}
+            data={skillList.map((item, index) => {
+              return {
+                id: index,
+                label: item.name,
+                value: item.id,
+                otherNames: item.otherNames,
+                description: item.description
+              }
+            })}
+            renderItem={renderSkillItem}
             // keyExtractor={item => item.id}
             ItemSeparatorComponent={() => <Separator />}
           />
         </View>
+      </View>
+      <View style={{ height: 50}}>
+        <Chip style={{width: '100%'}}>
+          <MonoText>Add</MonoText>
+        </Chip>
       </View>
       
     </View>

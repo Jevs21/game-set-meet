@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useRouter } from "expo-router";
 import { MonoText } from "../StyledText";
 import { Chip, Icon } from "../Themed";
@@ -25,10 +25,10 @@ const ProfileCardChip = ({ data }: ProfileCardChipProps) => {
       {/* <Icon name={"sports_tennis"} size={18} style={styles.chipIcon} /> */}
       {/* <MonoText style={styles.chipIcon}>{sport.name}</MonoText> */}
       {'skillLevel' in data ?
-        <>
+        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
           <MonoText style={styles.chipIcon} ellipsizeMode='tail' numberOfLines={1}>{data.name}</MonoText>
-          <MonoText style={styles.chipText}>{data.skillLevel}</MonoText>  
-        </> 
+          <MonoText>{data.skillLevel.slice(0, 3)}.</MonoText>  
+        </View> 
         :
         <>
           <Icon name={"location-on"} size={18} style={styles.chipIcon} />
