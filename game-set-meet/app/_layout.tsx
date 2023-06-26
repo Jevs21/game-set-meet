@@ -24,6 +24,8 @@ export const unstable_settings = {
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    CenturyGothic: require('../assets/fonts/CenturyGothic/CenturyGothicRegular.otf'),
+    Gally: require('../assets/fonts/Gally/Gally.otf'),
     ...FontAwesome.font,
   });
 

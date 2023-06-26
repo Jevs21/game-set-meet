@@ -1,0 +1,20 @@
+{
+  "name": "sportsocial-server",
+  "version": "1.0.0",
+  "description": "Initial server for sport social",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx mocha tests/*.js"
+  },
+  "author": "Jordan Evans",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.3.7",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mocha": "^10.2.0",
+    "pg": "^8.11.1",
+    "supertest": "^6.3.3",
+    "winston": "^3.9.0"
+  }
+}
