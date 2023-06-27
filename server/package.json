@@ -4,6 +4,7 @@
   "description": "Initial server for sport social",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "npx mocha tests/*.js"
   },
   "author": "Jordan Evans",
