@@ -1,0 +1,60 @@
+html {
+  min-width: 100%;
+  min-height: 100%;
+}
+  
+body {
+  margin: 0 0 0 0;
+  /* background: #F3F3F3; */
+  background-image: url('https://jordanevans.me/assets/temp/white_wall_hash.webp');
+  background-repeat: repeat;
+  /* background-size: 70%; */
+  background-attachment: auto;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+}
+
+.App {
+  height: 100vh;
+  width: 100vw;
+  
+
+}
+
+
+
+@keyframes twitch {
+  0% {
+    transform: rotate(-2deg);
+  }
+  25% {
+    transform: rotate(1deg);
+  }
+  50% {
+    transform: rotate(-2deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(-2deg);
+  }
+}
+
+.sticky-note {
+  background-image: url("../assets/paper.jpg");
+  /* background-blend-mode: multiply; */
+  background-repeat: repeat;
+  background-attachment: auto;
+  /* background-size: cover; */
+  /* animation: twitch 4s infinite ease-in-out; */
+  animation-name: twitch;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
