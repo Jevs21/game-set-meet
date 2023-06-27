@@ -12,7 +12,7 @@ interface ProfileCardChipListProps {
 const ProfileCardChipList = ({ type, list, add }: ProfileCardChipListProps) => {
   const title = (type === 'court') ? 'Courts:' : 'Sports:';
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, paddingRight: 10 }}>
       <MonoTextSubHeader>{title}</MonoTextSubHeader>
       {list && list.map((data) => (
         <ProfileCardChip key={data.id} data={data} />

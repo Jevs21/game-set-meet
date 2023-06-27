@@ -64,6 +64,7 @@ export function Card(props: CardProps) {
     borderWidth: 1, 
     elevation: 1,
     padding: 20,
+    paddingVertical: 10,
     marginVertical: 10,
     marginHorizontal: 20,
     borderRadius: 10,
@@ -72,17 +73,17 @@ export function Card(props: CardProps) {
 
 export function Chip(props: ChipProps) {
   const { style, lightColor, darkColor, onPress, ...otherProps } = props;
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'chipBackground');
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'chipText');
   return (
     <TouchableOpacity onPress={onPress}>
       <DefaultView style={[{
         flexDirection: 'row',
         justifyContent: 'space-between',
-        // backgroundColor: '#4B9CD3',
-        backgroundColor: '#6BAEDB',
-        borderRadius: 5,
-        paddingVertical: 6,
-        marginRight: 15,
-        marginLeft: 5,
+        backgroundColor,
+        borderRadius: 6,
+        paddingVertical: 8,
+        paddingHorizontal: 4,
         marginVertical: 5,
       }, style]} {...otherProps} />
     </TouchableOpacity>
@@ -93,13 +94,13 @@ export function Separator(props: ViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
   const borderColor = useThemeColor({ light: lightColor, dark: darkColor }, 'borderColor');
 
-  return <DefaultView style={{
+  return <DefaultView style={[{
     height: 1,
     width: '100%',
     backgroundColor: borderColor,
     marginVertical: 5,
     opacity: 0.5,
-  }} />;
+  }, style]} />;
 }
 
 export function Icon(props: CustomIconProps) {

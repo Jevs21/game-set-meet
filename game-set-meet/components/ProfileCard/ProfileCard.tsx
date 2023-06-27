@@ -28,11 +28,11 @@ const ProfileCard = ({user}: ProfileCardProps) => {
       {/* <Card> */}
       <View style={styles.header}>
         <Avatar rounded source={{ uri: user.imgUrl }} size="large" />
-        <MonoTextHeader>{user.name}</MonoTextHeader>
-        <Text style={styles.pronouns}>{user.pronouns}</Text>
+        <MonoTextHeader style={{marginTop: 10}}>{user.name}</MonoTextHeader>
+        <MonoText style={styles.pronouns}>{user.pronouns}</MonoText>
       </View>
 
-      <View style={{ marginVertical: 20, marginHorizontal: 5 }}>
+      <View style={{ marginVertical: 10 }}>
         <MonoTextSubHeader>{user.bio}</MonoTextSubHeader>
       </View>
 
@@ -59,26 +59,14 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'column',
     alignItems: 'center',
-    marginBottom: 15
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginTop: 10,
   },
   pronouns: {
-    fontSize: 14,
-    color: 'gray',
-  },
-  bio: {
-    fontSize: 14,
-    color: 'gray',
-    marginBottom: 10,
+    opacity: 0.8,
   },
   subview: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 20
+    marginVertical: 10
   },
   playButton: {
     backgroundColor: '#4B9CD3',

@@ -34,33 +34,27 @@ const ConnectionListItem = (props: ConnectionListItemProps) => {
         });
       }}
     >
-      {/* <Link href={{ pathname: '/chat', params: {
-        userJson: JSON.stringify(user)
-      }}} style={{
-        flex: 1,
-      }}> */}
+      <View style={{
+        flex: 1, 
+        flexDirection: 'row', 
+        alignItems: 'center',
+        // justifyContent: 'center',
+        padding: 2,
+        paddingHorizontal: 20,
+        maxHeight: 80,
+      }}>
+        
+        <Avatar rounded size={'medium'} source={{ uri: user.imgUrl }} />
         <View style={{
-          flex: 1, 
-          flexDirection: 'row', 
-          alignItems: 'center',
-          // justifyContent: 'center',
-          padding: 2,
-          paddingHorizontal: 20,
-          maxHeight: 80,
+          flex: 1,
+          flexDirection: 'column',
+          width: '100%', 
         }}>
-          
-          <Avatar rounded size={'medium'} source={{ uri: user.imgUrl }} />
-          <View style={{
-            flex: 1,
-            flexDirection: 'column',
-            width: '100%', 
-          }}>
-            <MonoTextSubHeader>{name}</MonoTextSubHeader>
-            <MonoText>{lastMessage}</MonoText>
-          </View>
-          <Icon name={'keyboard-arrow-right'} size={20} /> 
+          <MonoTextSubHeader>{name}</MonoTextSubHeader>
+          <MonoText>{lastMessage}</MonoText>
         </View>
-      {/* </Link> */}
+        <Icon name={'keyboard-arrow-right'} size={20} /> 
+      </View>
     </TouchableOpacity>
   );
 }
