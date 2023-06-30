@@ -7,6 +7,16 @@ interface ProfileCardChipProps {
   data: SportData | CourtData;
 }
 
+const SkillLevelColorSquare = ({ skillLevel }: { skillLevel: number }) => (
+  <View style={{
+    width: 18, 
+    height: '100%', 
+    backgroundColor: 'green',
+    borderBottomRightRadius: 6,
+    borderTopRightRadius: 6,
+  }}/>
+)
+
 const ProfileCardChip = ({ data }: ProfileCardChipProps) => {
   const { push } = useRouter();
   const pushParams = {
@@ -26,8 +36,11 @@ const ProfileCardChip = ({ data }: ProfileCardChipProps) => {
       {/* <MonoText style={styles.chipIcon}>{sport.name}</MonoText> */}
       {'skillLevel' in data ?
         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-          <MonoChipText style={styles.chipIcon} ellipsizeMode='tail' numberOfLines={1}>{data.name}</MonoChipText>
-          <MonoChipText>{data.skillLevel.slice(0, 3)}.</MonoChipText>  
+          <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+            <MonoChipText style={styles.chipIcon} ellipsizeMode='tail' numberOfLines={1}>{data.name}</MonoChipText>
+          </View>
+          {/* <MonoChipText>{data.skillLevel.slice(0, 3)}.</MonoChipText>   */}
+          <SkillLevelColorSquare skillLevel={0} />
         </View> 
         :
         <>

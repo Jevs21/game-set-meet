@@ -82,8 +82,10 @@ export function Chip(props: ChipProps) {
         justifyContent: 'space-between',
         backgroundColor,
         borderRadius: 6,
-        paddingVertical: 8,
-        paddingHorizontal: 4,
+        // paddingVertical: 8,
+        // paddingHorizontal: 4,
+        height: 40,
+        paddingLeft: 2,
         marginVertical: 5,
       }, style]} {...otherProps} />
     </TouchableOpacity>
