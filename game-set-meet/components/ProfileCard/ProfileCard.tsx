@@ -44,11 +44,11 @@ const ProfileCard = ({user}: ProfileCardProps) => {
       </View>
       
       <ProfileCardAvailability availability={user.availability} /> 
-      { hasMatchSent ? (
+      {/* { hasMatchSent ? (
         <Text>Match sent!</Text> 
       ): (
         <Button title="Play" buttonStyle={styles.playButton} onPress={() => playUser(user)}/>
-      )}
+      )} */}
       {/* </Card> */}
     </Card>
     
