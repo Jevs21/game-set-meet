@@ -8,6 +8,7 @@ import TopUtilityContainer from "../TopUtilityContainer";
 import FeedButtonGroup from "./FeedButtonGroup";
 import ProfileSettings from "../Settings/ProfileSettings";
 import { MonoTextSubHeader } from "../StyledText";
+import DoubleButtonGroup from "../DoubleButtonGroup";
 
 const Feed = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -33,7 +34,11 @@ const Feed = () => {
   return (
     <View style={styles.container}>
       <TopUtilityContainer>
-        <FeedButtonGroup selected={selectedIndex} setSelected={setSelectedIndex}/>
+        <DoubleButtonGroup
+          selected={selectedIndex}
+          setSelected={setSelectedIndex}
+          titles={['Individuals', 'Teams']}
+        />
       </TopUtilityContainer>
       <ScrollView
         ref={scrollRef}

@@ -40,11 +40,15 @@ export default function TabLayout() {
       <Tabs.Screen
         name="two"
         options={{
-          title: 'Chats',
+          title: 'Connections',
           tabBarIcon: ({ color }) => <TabBarIcon name="comment" color={color} />,
           headerRight: () => (
             <HeaderIconButton href="/modal" name="add" />
           ),
+          headerStyle: {
+            backgroundColor: Colors[colorScheme ?? 'light'].background,
+            shadowColor: 'transparent',
+          },
         }}
       />
       <Tabs.Screen

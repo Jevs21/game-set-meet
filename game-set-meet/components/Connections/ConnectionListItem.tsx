@@ -41,7 +41,8 @@ const ConnectionListItem = (props: ConnectionListItemProps) => {
         // justifyContent: 'center',
         padding: 2,
         paddingHorizontal: 20,
-        maxHeight: 80,
+        // maxHeight: 80,
+        height: 80
       }}>
         
         <Avatar rounded size={'medium'} source={{ uri: user.imgUrl }} />
@@ -49,8 +50,9 @@ const ConnectionListItem = (props: ConnectionListItemProps) => {
           flex: 1,
           flexDirection: 'column',
           width: '100%', 
+          paddingHorizontal: 10,
         }}>
-          <MonoTextSubHeader>{name}</MonoTextSubHeader>
+          <MonoTextSubHeader style={{paddingVertical: 4}}>{name}</MonoTextSubHeader>
           <MonoText>{lastMessage}</MonoText>
         </View>
         <Icon name={'keyboard-arrow-right'} size={20} /> 

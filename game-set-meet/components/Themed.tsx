@@ -63,9 +63,11 @@ export function Card(props: CardProps) {
     // flex: 1,
     borderWidth: 1, 
     elevation: 1,
-    padding: 20,
-    paddingVertical: 10,
+    padding: 35,
+    paddingHorizontal: 25,
+    // paddingVertical: 10,
     margin: 20,
+    marginTop: '20%',
     borderRadius: 6,
   }, style]} {...otherProps} />;
 }

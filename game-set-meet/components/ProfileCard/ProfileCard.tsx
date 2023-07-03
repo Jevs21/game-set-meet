@@ -4,7 +4,7 @@ import { Text, StyleSheet, Dimensions, Platform } from "react-native";
 import { BaseText, MonoText, MonoTextHeader, MonoTextSubHeader } from "../StyledText";
 import { Avatar, Button } from "react-native-elements";
 import ProfileCardAvailability from "./ProfileCardAvailability";
-import { View, Card, Separator } from "../Themed";
+import { View, Card, Separator, useThemeColor } from "../Themed";
 import { useState } from "react";
 import ProfileCardChipList from "./ProfileCardChipList";
 
@@ -21,6 +21,7 @@ const ProfileCard = ({user}: ProfileCardProps) => {
     setHasMatchSent(true);
     console.log("Playing user: " + user.name);
   }
+  const hideButtonColor = useThemeColor({}, 'background');
 
   // Get user data from global store
   const store = useSelector((state: RootState) => state.userData); 
@@ -44,7 +45,7 @@ const ProfileCard = ({user}: ProfileCardProps) => {
           </View>
         </View>
 
-        <View style={{ marginVertical: 20 }}>
+        <View style={{ marginVertical: 10 }}>
           <MonoText style={{lineHeight: 24}}>{user.bio}</MonoText>
         </View>
 
@@ -52,18 +53,21 @@ const ProfileCard = ({user}: ProfileCardProps) => {
           <ProfileCardChipList type="sport" list={user.sports}/>
         </View>
         
-        <View style={styles.subview}>
-          
-          { hasMatchSent ? (
-            <Text>Match sent!</Text> 
-          ): (
-            <Button 
-              title="Connect" 
-              titleStyle={{color: "#302d2d", fontFamily: 'Gally'}}
-              buttonStyle={styles.playButton} 
-              onPress={() => playUser(user)}
-              />
-          )}
+        <View style={[styles.subview, {paddingTop: 20}]}>
+          <Button
+            title="Hide"
+            titleStyle={{color: "#302d2d", fontFamily: 'Gally'}}
+            buttonStyle={[styles.button, {backgroundColor: "#D3D3D3"}]}
+            containerStyle={{flex: 1}}
+            onPress={() => console.log("Hide user")}
+            />
+          <Button 
+            title="Connect" 
+            titleStyle={{color: "#302d2d", fontFamily: 'Gally'}}
+            buttonStyle={[styles.button, styles.playButton]} 
+            containerStyle={{flex: 5}}
+            onPress={() => playUser(user)}
+            />
         </View>
         {/* </Card> */}
       </Card>
@@ -89,9 +93,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  playButton: {
+  button: {
     backgroundColor: "#FBA673",
-    color: "#302d2d"
+    height: 50,
+    borderRadius: 6,
+    width: "100%",
+  },
+  playButton: {
+    // flex: 1,
+    backgroundColor: "#FBA673",
+    // width: "75%"
   },
 });
 
