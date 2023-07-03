@@ -7,6 +7,7 @@ import ProfileCardAvailability from "./ProfileCardAvailability";
 import { View, Card, Separator } from "../Themed";
 import { useState } from "react";
 import ProfileCardChipList from "./ProfileCardChipList";
+import { View as BaseView } from 'react-native';
 
 
 
@@ -17,6 +18,7 @@ interface ProfileCardProps {
 const ProfileCard = ({user}: ProfileCardProps) => {
   const [hasMatchSent, setHasMatchSent] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
+  const { height } = Dimensions.get('window');  // Add this line
   const playUser = (user: UserData) => {
     setHasMatchSent(true);
     console.log("Playing user: " + user.name);
@@ -24,33 +26,35 @@ const ProfileCard = ({user}: ProfileCardProps) => {
   // Get user data from global store
   const store = useSelector((state: RootState) => state.userData); 
   return (
-    <Card>
-      {/* <Card> */}
-      <View style={styles.header}>
-        <Avatar rounded source={{ uri: user.imgUrl }} size="large" />
-        <MonoTextHeader style={{marginTop: 10}}>{user.name}</MonoTextHeader>
-        <MonoText style={styles.pronouns}>{user.pronouns}</MonoText>
-      </View>
+    <View style={{flex: 1, height: height}}>
+      <Card>
+        {/* <Card> */}
+        <View style={styles.header}>
+          <Avatar rounded source={{ uri: user.imgUrl }} size="large" />
+          <MonoTextHeader style={{marginTop: 10}}>{user.name}</MonoTextHeader>
+          <MonoText style={styles.pronouns}>{user.pronouns}</MonoText>
+        </View>
 
-      <View style={{ marginVertical: 10 }}>
-        <MonoTextSubHeader>{user.bio}</MonoTextSubHeader>
-      </View>
+        <View style={{ marginVertical: 10 }}>
+          <MonoTextSubHeader>{user.bio}</MonoTextSubHeader>
+        </View>
 
-      <Separator />
+        <Separator />
 
-      <View style={styles.subview}>
-        <ProfileCardChipList type="sport" list={user.sports}/>
-        <ProfileCardChipList type="court" list={user.courts}/>
-      </View>
-      
-      <ProfileCardAvailability availability={user.availability} /> 
-      {/* { hasMatchSent ? (
-        <Text>Match sent!</Text> 
-      ): (
-        <Button title="Play" buttonStyle={styles.playButton} onPress={() => playUser(user)}/>
-      )} */}
-      {/* </Card> */}
-    </Card>
+        <View style={styles.subview}>
+          <ProfileCardChipList type="sport" list={user.sports}/>
+          <ProfileCardChipList type="court" list={user.courts}/>
+        </View>
+        
+        <ProfileCardAvailability availability={user.availability} /> 
+        {/* { hasMatchSent ? (
+          <Text>Match sent!</Text> 
+        ): (
+          <Button title="Play" buttonStyle={styles.playButton} onPress={() => playUser(user)}/>
+        )} */}
+        {/* </Card> */}
+      </Card>
+    </View>
     
   );
 };

@@ -60,14 +60,13 @@ export function Card(props: CardProps) {
   
   return <DefaultView style={[{ 
     backgroundColor, borderColor, shadowColor,
-    flex: 1,
+    // flex: 1,
     borderWidth: 1, 
     elevation: 1,
     padding: 20,
     paddingVertical: 10,
-    marginVertical: 10,
-    marginHorizontal: 20,
-    borderRadius: 10,
+    margin: 20,
+    borderRadius: 6,
   }, style]} {...otherProps} />;
 }
 

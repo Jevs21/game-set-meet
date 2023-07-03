@@ -31,6 +31,10 @@ export default function TabLayout() {
           // headerRight: () => (
           //   <HeaderIconButton href="/modal" name="info" />
           // ),
+          headerStyle: {
+            backgroundColor: Colors[colorScheme ?? 'light'].background,
+            shadowColor: 'transparent',
+          },
         }}
       />
       <Tabs.Screen
