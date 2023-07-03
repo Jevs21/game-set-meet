@@ -1,10 +1,12 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../global/store";
 import { StyleSheet, Dimensions } from "react-native";
-import { MonoText, MonoTextHeader } from "../StyledText";
+import { MonoText, MonoTextHeader, MonoTextSubHeader } from "../StyledText";
 import { Avatar, Button } from "react-native-elements";
 import { View, Card } from "../Themed";
 import ProfileCardChipList from "./ProfileCardChipList";
+import AvatarStack from "./AvatarStack";
+import Colors from "../../constants/Colors";
 
 
 interface ProfileCardProps {
@@ -36,58 +38,65 @@ const ProfileCard = ({data}: ProfileCardProps) => {
   return (
     <View style={{flex: 1, height: height}}>
       <Card>
-        {/* <Card> */}
-        <View style={styles.header}>
-          <View style={{flex: 1 }}>
-            <Avatar rounded source={{ uri: data.imgUrl }} size="large" />
-          </View>
-          <View style={{flex: 3, justifyContent: 'flex-start', paddingLeft: 10}}>
-            <MonoTextHeader>{data.name}</MonoTextHeader>
+        <View>
+          <View style={styles.header}>
+            {'members' in data && <AvatarStack users={data.members} />}
+            {!('members' in data) && <AvatarStack users={[data]} />}
+            <MonoTextHeader style={styles.name}>{data.name}</MonoTextHeader>
             <View style={styles.pronounView}>
               {'pronouns' in data && (
                 <>
-                  <MonoText style={styles.subtitle}>{data.pronouns}</MonoText>
-                  <MonoText style={styles.subtitle}>  •  </MonoText>
+                  <MonoTextSubHeader style={styles.subtitle}>{data.pronouns}</MonoTextSubHeader>
+                  <MonoTextSubHeader style={styles.subtitle}>  •  </MonoTextSubHeader>
                 </>
               )}
-              <MonoText style={styles.subtitle}>{data.distance} km away.</MonoText>
+              {!('pronouns' in data) && (
+                <>
+                  <MonoTextSubHeader style={styles.subtitle}>{data.members.length} members</MonoTextSubHeader>
+                  <MonoTextSubHeader style={styles.subtitle}>  •  </MonoTextSubHeader>
+                </>
+              )}
+              <MonoTextSubHeader style={styles.subtitle}>{data.distance} km away</MonoTextSubHeader>
             </View>
+          </View>
+          
+          <View style={styles.content}>
             <MonoText style={styles.subtitle}>{data.mutualAvailabilityStr}</MonoText>
 
+            {'members' in data && (
+              <View style={{ marginVertical: 5 }}>
+                <MonoText style={{lineHeight: 24}}>{generateMemberStr(data.members)}</MonoText>
+              </View>
+            )}
+
+            <View style={{ marginVertical: 30 }}>
+              <MonoText style={{lineHeight: 24}}>{data.bio}</MonoText>
+            </View>
+
+            <View style={styles.subview}>
+              <ProfileCardChipList type="sport" list={data.sports}/>
+            </View>
+            
+            <View style={[styles.subview, {paddingTop: 20}]}>
+              <Button
+                title="Hide"
+                titleStyle={{color: "#302d2d", fontFamily: 'Gally'}}
+                buttonStyle={[styles.button, {backgroundColor: "#D3D3D3"}]}
+                containerStyle={{flex: 1}}
+                onPress={() => console.log("Hide user")}
+                />
+              <Button 
+                title="Connect" 
+                titleStyle={{color: "#302d2d", fontFamily: 'Gally'}}
+                buttonStyle={[styles.button, styles.playButton]} 
+                containerStyle={{flex: 5}}
+                onPress={() => sendConnectionRequest(data)}
+                />
+            </View>
           </View>
         </View>
         
-        {'members' in data && (
-          <View style={{ marginVertical: 5 }}>
-            <MonoText style={{lineHeight: 24}}>{generateMemberStr(data.members)}</MonoText>
-          </View>
-        )}
-
-        <View style={{ marginVertical: 30 }}>
-          <MonoText style={{lineHeight: 24}}>{data.bio}</MonoText>
-        </View>
-
-        <View style={styles.subview}>
-          <ProfileCardChipList type="sport" list={data.sports}/>
-        </View>
-        
-        <View style={[styles.subview, {paddingTop: 20}]}>
-          <Button
-            title="Hide"
-            titleStyle={{color: "#302d2d", fontFamily: 'Gally'}}
-            buttonStyle={[styles.button, {backgroundColor: "#D3D3D3"}]}
-            containerStyle={{flex: 1}}
-            onPress={() => console.log("Hide user")}
-            />
-          <Button 
-            title="Connect" 
-            titleStyle={{color: "#302d2d", fontFamily: 'Gally'}}
-            buttonStyle={[styles.button, styles.playButton]} 
-            containerStyle={{flex: 5}}
-            onPress={() => sendConnectionRequest(data)}
-            />
-        </View>
-        {/* </Card> */}
+            
       </Card>
     </View>
     
@@ -96,16 +105,27 @@ const ProfileCard = ({data}: ProfileCardProps) => {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: 'row',
     alignItems: 'center',
+    paddingVertical: 20,
+    backgroundColor: Colors.light.chipBackground,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
+  content: {
+    padding: 30,
+  },
+  name: {
+    textAlign: 'center',
+    color: Colors.dark.text,
+    paddingVertical: 10,
   },
   pronounView: {
     flexDirection: 'row', 
     alignItems: 'center',
-    marginVertical: 5
   },
   subtitle: {
-    opacity: 0.8,
+    opacity: 0.9,
+    color: Colors.dark.text,
   },
   subview: {
     flexDirection: 'row',
