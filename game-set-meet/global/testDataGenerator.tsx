@@ -222,6 +222,26 @@ export function generateLoggedUserData(): LoggedUserData {
   };
 }
 
+export function generateTeamList(): TeamData[] {
+  const teams: TeamData[] = [];
+
+  for (let i = 0; i < 5; i++) {
+    teams.push({
+      id: `Team${i + 1}`,
+      name: `Team ${i + 1}`,
+      imgUrl: `https://i.pravatar.cc/300?img=${i + 1}`,
+      bio: getRandomBio(),
+      sports: getRandomSports(),
+      members: generateUsersData(5),
+      availability: getRandomAvailability(),
+      mutualAvailabilityStr: 'Mon, Wed, Fri 6:00 PM - 8:00 PM',
+      distance: Math.floor(Math.random() * 100),
+    });
+  }
+
+  return teams;
+}
+
 const masterSports = [
   "Aikido",
   "Archery",

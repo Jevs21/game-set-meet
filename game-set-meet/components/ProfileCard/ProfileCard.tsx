@@ -1,29 +1,37 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../global/store";
-import { Text, StyleSheet, Dimensions, Platform } from "react-native";
-import { BaseText, MonoText, MonoTextHeader, MonoTextSubHeader } from "../StyledText";
+import { StyleSheet, Dimensions } from "react-native";
+import { MonoText, MonoTextHeader } from "../StyledText";
 import { Avatar, Button } from "react-native-elements";
-import ProfileCardAvailability from "./ProfileCardAvailability";
-import { View, Card, Separator, useThemeColor } from "../Themed";
-import { useState } from "react";
+import { View, Card } from "../Themed";
 import ProfileCardChipList from "./ProfileCardChipList";
 
 
 interface ProfileCardProps {
-  user: UserData;
+  data: UserData | TeamData;
 }
 
-const ProfileCard = ({user}: ProfileCardProps) => {
-  const [hasMatchSent, setHasMatchSent] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
+const ProfileCard = ({data}: ProfileCardProps) => {
   const { height } = Dimensions.get('window');  // Add this line
-  const playUser = (user: UserData) => {
-    setHasMatchSent(true);
-    console.log("Playing user: " + user.name);
-  }
-  const hideButtonColor = useThemeColor({}, 'background');
 
-  // Get user data from global store
+  const sendConnectionRequest = (data: UserData | TeamData) => {
+    console.log("Sending connection request to " + data.name);
+  }
+  
+  const generateMemberStr = (members: UserData[]): string => {
+    let str = "Members:";
+    for (let i = 0; i < members.length; i++) {
+      str += members[i].name;
+      if (i < members.length - 2) {
+        str += ", ";
+      } else if (i == members.length - 2) {
+        str += " and ";
+      }
+    }
+    return str;
+  }
+
+  // Get data data from global store
   const store = useSelector((state: RootState) => state.userData); 
   return (
     <View style={{flex: 1, height: height}}>
@@ -31,26 +39,36 @@ const ProfileCard = ({user}: ProfileCardProps) => {
         {/* <Card> */}
         <View style={styles.header}>
           <View style={{flex: 1 }}>
-            <Avatar rounded source={{ uri: user.imgUrl }} size="large" />
+            <Avatar rounded source={{ uri: data.imgUrl }} size="large" />
           </View>
           <View style={{flex: 3, justifyContent: 'flex-start', paddingLeft: 10}}>
-            <MonoTextHeader>{user.name}</MonoTextHeader>
+            <MonoTextHeader>{data.name}</MonoTextHeader>
             <View style={styles.pronounView}>
-              <MonoText style={styles.subtitle}>{user.pronouns}</MonoText>
-              <MonoText style={styles.subtitle}>  •  </MonoText>
-              <MonoText style={styles.subtitle}>{user.distance} km away.</MonoText>
+              {'pronouns' in data && (
+                <>
+                  <MonoText style={styles.subtitle}>{data.pronouns}</MonoText>
+                  <MonoText style={styles.subtitle}>  •  </MonoText>
+                </>
+              )}
+              <MonoText style={styles.subtitle}>{data.distance} km away.</MonoText>
             </View>
-            <MonoText style={styles.subtitle}>{user.mutualAvailabilityStr}</MonoText>
+            <MonoText style={styles.subtitle}>{data.mutualAvailabilityStr}</MonoText>
 
           </View>
         </View>
+        
+        {'members' in data && (
+          <View style={{ marginVertical: 5 }}>
+            <MonoText style={{lineHeight: 24}}>{generateMemberStr(data.members)}</MonoText>
+          </View>
+        )}
 
-        <View style={{ marginVertical: 10 }}>
-          <MonoText style={{lineHeight: 24}}>{user.bio}</MonoText>
+        <View style={{ marginVertical: 30 }}>
+          <MonoText style={{lineHeight: 24}}>{data.bio}</MonoText>
         </View>
 
         <View style={styles.subview}>
-          <ProfileCardChipList type="sport" list={user.sports}/>
+          <ProfileCardChipList type="sport" list={data.sports}/>
         </View>
         
         <View style={[styles.subview, {paddingTop: 20}]}>
@@ -66,7 +84,7 @@ const ProfileCard = ({user}: ProfileCardProps) => {
             titleStyle={{color: "#302d2d", fontFamily: 'Gally'}}
             buttonStyle={[styles.button, styles.playButton]} 
             containerStyle={{flex: 5}}
-            onPress={() => playUser(user)}
+            onPress={() => sendConnectionRequest(data)}
             />
         </View>
         {/* </Card> */}

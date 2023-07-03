@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import {  View } from "../Themed";
 import { Dimensions, FlatList, ScrollView, StyleSheet } from "react-native";
-import { generateUsersData } from "../../global/testDataGenerator";
+import { generateTeamList, generateUsersData } from "../../global/testDataGenerator";
 import ProfileCard from "../ProfileCard/ProfileCard";
 import TopUtilityContainer from "../TopUtilityContainer";
 import FeedButtonGroup from "./FeedButtonGroup";
@@ -13,13 +13,16 @@ import DoubleButtonGroup from "../DoubleButtonGroup";
 const Feed = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [userList, setUserList] = useState<UserData[]>([]);
+  const [teamList, setTeamList] = useState<TeamData[]>([]);
   const scrollRef = useRef<ScrollView | null>(null); // Reference to ScrollView
   const { height, width } = Dimensions.get('window'); 
   useEffect(() => {
     // Fetch feed from store
     const feedData = generateUsersData();
+    const teamData = generateTeamList();
     // const feedData: UserData[] | null = useSelector((state: RootState) => state.feedData.feedData);
     setUserList((feedData) ? feedData : []);
+    setTeamList((teamData) ? teamData : []);
   }, []);
 
   // const fadeAnim1 = useRef(new Animated.Value(selectedIndex === 0 ? 1 : 0)).current;
@@ -58,17 +61,26 @@ const Feed = () => {
         <FlatList
           style={{ width: width }}
           data={userList}
-          renderItem={({ item }) => <ProfileCard user={item} />}
+          renderItem={({ item }) => <ProfileCard data={item} />}
           keyExtractor={(item, index) => item.id || index.toString()}
           // ItemSeparatorComponent={() => <Separator />}
           snapToInterval={height} // Add this line
           decelerationRate="fast" // Add this line
         />
-        <View style={{ width, height }}> 
+        <FlatList
+          style={{ width: width }}
+          data={teamList}
+          renderItem={({ item }) => <ProfileCard data={item} />}
+          keyExtractor={(item, index) => item.id || index.toString()}
+          // ItemSeparatorComponent={() => <Separator />}
+          snapToInterval={height} // Add this line
+          decelerationRate="fast" // Add this line
+        />
+        {/* <View style={{ width, height }}> 
           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
             <MonoTextSubHeader>Coming soon!</MonoTextSubHeader>
           </View>
-        </View>
+        </View> */}
       </ScrollView>
 
       

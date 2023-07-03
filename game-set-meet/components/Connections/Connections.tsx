@@ -56,6 +56,7 @@ const Connections = () => {
           keyExtractor={(item, index) => item.id || index.toString()}
           ItemSeparatorComponent={() => <Separator style={{marginVertical: 0}} />}
         />
+        
 
         <View style={{ width, height }}> 
           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>

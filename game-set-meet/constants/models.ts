@@ -14,6 +14,8 @@ interface UserData {
 interface TeamData {
   id: string;
   name: string;
+  imgUrl: string;
+  bio: string;
   sports: SportData[];
   members: UserData[];
   availability: boolean[][];
