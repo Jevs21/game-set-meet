@@ -1,7 +1,7 @@
 import { Text, TextProps } from './Themed';
 
 export function MonoText(props: TextProps) {
-  return <Text {...props} style={[props.style, { fontFamily: 'CenturyGothic', fontSize: 18 }]} />;
+  return <Text {...props} style={[props.style, { fontFamily: 'CenturyGothic', fontSize: 20 }]} />;
 }
 
 export function MonoChipText(props: TextProps) {

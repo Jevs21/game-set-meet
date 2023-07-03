@@ -174,7 +174,10 @@ export function generateUsersData(n: number = 10): UserData[] {
       bio: getRandomBio(),
       sports: getRandomSports(),
       courts: getRandomCourts(),
-      availability: getRandomAvailability()
+      availability: getRandomAvailability(),
+      mutualAvailabilityStr: "Mon, Wed, Fri 5-7pm",
+      distance: Math.floor(Math.random() * 100),
+
     });
   }
   return users;
@@ -214,6 +217,8 @@ export function generateLoggedUserData(): LoggedUserData {
     availability: getRandomAvailability(),
     email: "jane.doe@example.com",
     connections: generateConnectionData(),
+    mutualAvailabilityStr: 'Mon, Wed, Fri 6:00 PM - 8:00 PM',
+    distance: 0,
   };
 }
 

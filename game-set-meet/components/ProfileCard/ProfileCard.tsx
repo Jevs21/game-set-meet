@@ -7,8 +7,6 @@ import ProfileCardAvailability from "./ProfileCardAvailability";
 import { View, Card, Separator } from "../Themed";
 import { useState } from "react";
 import ProfileCardChipList from "./ProfileCardChipList";
-import { View as BaseView } from 'react-native';
-
 
 
 interface ProfileCardProps {
@@ -23,6 +21,7 @@ const ProfileCard = ({user}: ProfileCardProps) => {
     setHasMatchSent(true);
     console.log("Playing user: " + user.name);
   }
+
   // Get user data from global store
   const store = useSelector((state: RootState) => state.userData); 
   return (
@@ -30,28 +29,42 @@ const ProfileCard = ({user}: ProfileCardProps) => {
       <Card>
         {/* <Card> */}
         <View style={styles.header}>
-          <Avatar rounded source={{ uri: user.imgUrl }} size="large" />
-          <MonoTextHeader style={{marginTop: 10}}>{user.name}</MonoTextHeader>
-          <MonoText style={styles.pronouns}>{user.pronouns}</MonoText>
+          <View style={{flex: 1 }}>
+            <Avatar rounded source={{ uri: user.imgUrl }} size="large" />
+          </View>
+          <View style={{flex: 3, justifyContent: 'flex-start', paddingLeft: 10}}>
+            <MonoTextHeader>{user.name}</MonoTextHeader>
+            <View style={styles.pronounView}>
+              <MonoText style={styles.subtitle}>{user.pronouns}</MonoText>
+              <MonoText style={styles.subtitle}>  •  </MonoText>
+              <MonoText style={styles.subtitle}>{user.distance} km away.</MonoText>
+            </View>
+            <MonoText style={styles.subtitle}>{user.mutualAvailabilityStr}</MonoText>
+
+          </View>
         </View>
 
-        <View style={{ marginVertical: 10 }}>
-          <MonoTextSubHeader>{user.bio}</MonoTextSubHeader>
+        <View style={{ marginVertical: 20 }}>
+          <MonoText style={{lineHeight: 24}}>{user.bio}</MonoText>
         </View>
-
-        <Separator />
 
         <View style={styles.subview}>
           <ProfileCardChipList type="sport" list={user.sports}/>
-          <ProfileCardChipList type="court" list={user.courts}/>
         </View>
         
-        <ProfileCardAvailability availability={user.availability} /> 
-        {/* { hasMatchSent ? (
-          <Text>Match sent!</Text> 
-        ): (
-          <Button title="Play" buttonStyle={styles.playButton} onPress={() => playUser(user)}/>
-        )} */}
+        <View style={styles.subview}>
+          
+          { hasMatchSent ? (
+            <Text>Match sent!</Text> 
+          ): (
+            <Button 
+              title="Connect" 
+              titleStyle={{color: "#302d2d", fontFamily: 'Gally'}}
+              buttonStyle={styles.playButton} 
+              onPress={() => playUser(user)}
+              />
+          )}
+        </View>
         {/* </Card> */}
       </Card>
     </View>
@@ -61,19 +74,24 @@ const ProfileCard = ({user}: ProfileCardProps) => {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
   },
-  pronouns: {
+  pronounView: {
+    flexDirection: 'row', 
+    alignItems: 'center',
+    marginVertical: 5
+  },
+  subtitle: {
     opacity: 0.8,
   },
   subview: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 10
   },
   playButton: {
-    backgroundColor: '#4B9CD3',
+    backgroundColor: "#FBA673",
+    color: "#302d2d"
   },
 });
 

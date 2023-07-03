@@ -7,13 +7,27 @@ interface UserData {
   sports: SportData[];
   courts: CourtData[];
   availability: boolean[][];
+  mutualAvailabilityStr: string;
+  distance: number;
 }
+
+interface TeamData {
+  id: string;
+  name: string;
+  sports: SportData[];
+  members: UserData[];
+  availability: boolean[][];
+  mutualAvailabilityStr: string;
+  distance: number;
+}
+
 interface SportData {
   id: string;
   name: string;
   icon: string;
   skillLevel: string;
 }
+
 interface CourtData {
   id: string;
   name: string;
