@@ -1,25 +1,17 @@
-import { ListItem, Avatar } from "react-native-elements";
 import { Icon, View } from "../Themed";
 import { MonoText, MonoTextSubHeader } from "../StyledText";
 import { TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
-import { useMemo } from "react";
+import AvatarStack from "../AvatarStack";
 
 interface ConnectionListItemProps {
-  users: UserData[];
+  connection: ConnectionData;
 }
 
-const ConnectionListItem = (props: ConnectionListItemProps) => {
-  const { users } = props;
-  const user = users[0];
+const ConnectionListItem = ({connection}: ConnectionListItemProps) => {
+
   const lastMessage = "asdf";
   const { push } = useRouter(); // use the hook to get the push function
-
-  const name = useMemo(() => {
-    return users.map((user) => {
-      return (user.name.includes(' ')) ? user.name.split(' ')[0] : user.name;
-    }).join(', ');
-  }, [users]);
 
   return (
     <TouchableOpacity
@@ -29,7 +21,7 @@ const ConnectionListItem = (props: ConnectionListItemProps) => {
         push({
           pathname: '/chat', 
           params: {
-            userJson: JSON.stringify(user)
+            userJson: JSON.stringify(connection.toId)
           },
         });
       }}
@@ -45,15 +37,15 @@ const ConnectionListItem = (props: ConnectionListItemProps) => {
         height: 80
       }}>
         
-        <Avatar rounded size={'medium'} source={{ uri: user.imgUrl }} />
+        <AvatarStack type={'connection'} imgUrls={connection.imgUrls} />
         <View style={{
           flex: 1,
           flexDirection: 'column',
           width: '100%', 
           paddingHorizontal: 10,
         }}>
-          <MonoTextSubHeader style={{paddingVertical: 4}}>{name}</MonoTextSubHeader>
-          <MonoText>{lastMessage}</MonoText>
+          <MonoTextSubHeader style={{paddingVertical: 4}}>{connection.name}</MonoTextSubHeader>
+          <MonoText>{connection.lastMessage.content}</MonoText>
         </View>
         <Icon name={'keyboard-arrow-right'} size={20} /> 
       </View>

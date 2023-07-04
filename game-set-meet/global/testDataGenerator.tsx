@@ -1,77 +1,77 @@
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
-const courts: CourtData[] = [
-  {
-    id: "Court1",
-    name: "Great Pyramid of Giza",
-    address: "Great Pyramid of Giza, Egypt",
-    lat: 29.9792,
-    lng: 31.1342
-  },
-  {
-    id: "Court2",
-    name: "Statue of Liberty",
-    address: "Liberty Island, New York, United States",
-    lat: 40.6892,
-    lng: -74.0445
-  },
-  {
-    id: "Court3",
-    name: "Eiffel Tower",
-    address: "Champ de Mars, 5 Avenue Anatole France, 75007 Paris, France",
-    lat: 48.8584,
-    lng: 2.2945
-  },
-  {
-    id: "Court4",
-    name: "Taj Mahal",
-    address: "Dharmapuri, Forest Colony, Tajganj, Agra, Uttar Pradesh 282001, India",
-    lat: 27.1751,
-    lng: 78.0421
-  },
-  {
-    id: "Court5",
-    name: "Sydney Opera House",
-    address: "Bennelong Point, Sydney NSW 2000, Australia",
-    lat: -33.8568,
-    lng: 151.2153
-  },
-  {
-    id: "Court6",
-    name: "Christ the Redeemer",
-    address: "Parque Nacional da Tijuca - Alto da Boa Vista, Rio de Janeiro - RJ, Brazil",
-    lat: -22.9519,
-    lng: -43.2105
-  },
-  {
-    id: "Court7",
-    name: "Great Wall of China",
-    address: "Huairou District, China",
-    lat: 40.4319,
-    lng: 116.5704
-  },
-  {
-    id: "Court8",
-    name: "Colosseum",
-    address: "Piazza del Colosseo, 1, 00184 Roma RM, Italy",
-    lat: 41.8902,
-    lng: 12.4922
-  },
-  {
-    id: "Court9",
-    name: "Machu Picchu",
-    address: "08680, Peru",
-    lat: -13.1631,
-    lng: -72.5450
-  },
-  {
-    id: "Court10",
-    name: "Petra",
-    address: "Petra District, Jordan",
-    lat: 30.3285,
-    lng: 35.4444
-  }
-];
+// const courts: CourtData[] = [
+//   {
+//     id: "Court1",
+//     name: "Great Pyramid of Giza",
+//     address: "Great Pyramid of Giza, Egypt",
+//     lat: 29.9792,
+//     lng: 31.1342
+//   },
+//   {
+//     id: "Court2",
+//     name: "Statue of Liberty",
+//     address: "Liberty Island, New York, United States",
+//     lat: 40.6892,
+//     lng: -74.0445
+//   },
+//   {
+//     id: "Court3",
+//     name: "Eiffel Tower",
+//     address: "Champ de Mars, 5 Avenue Anatole France, 75007 Paris, France",
+//     lat: 48.8584,
+//     lng: 2.2945
+//   },
+//   {
+//     id: "Court4",
+//     name: "Taj Mahal",
+//     address: "Dharmapuri, Forest Colony, Tajganj, Agra, Uttar Pradesh 282001, India",
+//     lat: 27.1751,
+//     lng: 78.0421
+//   },
+//   {
+//     id: "Court5",
+//     name: "Sydney Opera House",
+//     address: "Bennelong Point, Sydney NSW 2000, Australia",
+//     lat: -33.8568,
+//     lng: 151.2153
+//   },
+//   {
+//     id: "Court6",
+//     name: "Christ the Redeemer",
+//     address: "Parque Nacional da Tijuca - Alto da Boa Vista, Rio de Janeiro - RJ, Brazil",
+//     lat: -22.9519,
+//     lng: -43.2105
+//   },
+//   {
+//     id: "Court7",
+//     name: "Great Wall of China",
+//     address: "Huairou District, China",
+//     lat: 40.4319,
+//     lng: 116.5704
+//   },
+//   {
+//     id: "Court8",
+//     name: "Colosseum",
+//     address: "Piazza del Colosseo, 1, 00184 Roma RM, Italy",
+//     lat: 41.8902,
+//     lng: 12.4922
+//   },
+//   {
+//     id: "Court9",
+//     name: "Machu Picchu",
+//     address: "08680, Peru",
+//     lat: -13.1631,
+//     lng: -72.5450
+//   },
+//   {
+//     id: "Court10",
+//     name: "Petra",
+//     address: "Petra District, Jordan",
+//     lat: 30.3285,
+//     lng: 35.4444
+//   }
+// ];
 
 
 const pronouns: string[] = [
@@ -137,10 +137,10 @@ function getRandomSports(n: number = 3) {
   const shuffled = sports.sort(() => 0.5 - Math.random());
   return shuffled.slice(0, n);
 }
-function getRandomCourts(n: number = 3) {
-  const shuffled = courts.sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, n);
-}
+// function getRandomCourts(n: number = 3) {
+//   const shuffled = courts.sort(() => 0.5 - Math.random());
+//   return shuffled.slice(0, n);
+// }
 function getRandomPronoun() {
   const shuffled = pronouns.sort(() => 0.5 - Math.random());
   return shuffled[0];
@@ -170,14 +170,12 @@ export function generateUsersData(n: number = 10): UserData[] {
       id: `User${i + 1}`,
       name: getRandomName(),
       pronouns: getRandomPronoun(),
-      imgUrl: `https://i.pravatar.cc/300?img=${i + 1}`,
+      imgUrls: [`https://i.pravatar.cc/300`],
       bio: getRandomBio(),
       sports: getRandomSports(),
-      courts: getRandomCourts(),
-      availability: getRandomAvailability(),
+      mutualAvailability: getRandomAvailability(),
       mutualAvailabilityStr: "Mon, Wed, Fri 5-7pm",
       distance: Math.floor(Math.random() * 100),
-
     });
   }
   return users;
@@ -187,11 +185,16 @@ export function generateUsersData(n: number = 10): UserData[] {
 export function generateConnectionData(n: number = 5): ConnectionData[] {
   const connections: ConnectionData[] = [];
   for (let i = 1; i < n; i++) {
-    const users = generateUsersData((Math.random() > 0.5) ? 1 : 2);
+    const conn_type = (Math.random() > 0.5) ? 'indi' : 'team';
+    const users = generateUsersData((conn_type == 'indi') ? 1 : 4);
+
     connections.push({
       id: `Connection${i + 1}`,
-      userId: "LoggedUser1",
-      connectionUsers: users,
+      c_type: conn_type,
+      name: (conn_type == 'indi') ? users[0].name : `${users[0].name.split(" ")[0]} and ${users[1].name.split(" ")[0]}`,
+      imgUrls: (conn_type == 'indi') ? users[0].imgUrls : [`https://i.pravatar.cc/300`, `https://i.pravatar.cc/300`, `https://i.pravatar.cc/300`, `https://i.pravatar.cc/300`],
+      fromId: "LoggedUser1",
+      toId: `User${i + 1}`,
       lastMessage: {
         id: `Message${i + 1}`,
         senderId: `User${i + 1}`,
@@ -210,11 +213,10 @@ export function generateLoggedUserData(): LoggedUserData {
     id: "LoggedUser1",
     name: "Jane Doe",
     pronouns: "She/Her",
-    imgUrl: "https://i.pravatar.cc/300?img=2",
+    imgUrls: ["https://i.pravatar.cc/300?img=2"],
     bio: "I love playing Badminton. Been playing for 7 years.",
     sports: getRandomSports(),
-    courts: getRandomCourts(),
-    availability: getRandomAvailability(),
+    mutualAvailability: getRandomAvailability(),
     email: "jane.doe@example.com",
     connections: generateConnectionData(),
     mutualAvailabilityStr: 'Mon, Wed, Fri 6:00 PM - 8:00 PM',
@@ -229,11 +231,12 @@ export function generateTeamList(): TeamData[] {
     teams.push({
       id: `Team${i + 1}`,
       name: `Team ${i + 1}`,
-      imgUrl: `https://i.pravatar.cc/300?img=${i + 1}`,
+      memberIds: [`User${i + 1}`, `User${i + 2}`, `User${i + 3}`, `User${i + 4}`],
+      memberNames: [getRandomName(), getRandomName(), getRandomName(), getRandomName()],
+      imgUrls: [`https://i.pravatar.cc/300?img=${i + 1}`],
       bio: getRandomBio(),
       sports: getRandomSports(),
-      members: generateUsersData(5),
-      availability: getRandomAvailability(),
+      mutualAvailability: getRandomAvailability(),
       mutualAvailabilityStr: 'Mon, Wed, Fri 6:00 PM - 8:00 PM',
       distance: Math.floor(Math.random() * 100),
     });

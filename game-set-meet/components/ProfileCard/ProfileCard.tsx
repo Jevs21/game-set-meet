@@ -5,12 +5,13 @@ import { MonoText, MonoTextHeader, MonoTextSubHeader } from "../StyledText";
 import { Avatar, Button } from "react-native-elements";
 import { View, Card } from "../Themed";
 import ProfileCardChipList from "./ProfileCardChipList";
-import AvatarStack from "./AvatarStack";
+import AvatarStack from "../AvatarStack";
 import Colors from "../../constants/Colors";
 
 
 interface ProfileCardProps {
   data: UserData | TeamData;
+  // data: ProfileData;
 }
 
 const ProfileCard = ({data}: ProfileCardProps) => {
@@ -18,19 +19,6 @@ const ProfileCard = ({data}: ProfileCardProps) => {
 
   const sendConnectionRequest = (data: UserData | TeamData) => {
     console.log("Sending connection request to " + data.name);
-  }
-  
-  const generateMemberStr = (members: UserData[]): string => {
-    let str = "Members:";
-    for (let i = 0; i < members.length; i++) {
-      str += members[i].name;
-      if (i < members.length - 2) {
-        str += ", ";
-      } else if (i == members.length - 2) {
-        str += " and ";
-      }
-    }
-    return str;
   }
 
   // Get data data from global store
@@ -40,19 +28,17 @@ const ProfileCard = ({data}: ProfileCardProps) => {
       <Card>
         <View>
           <View style={styles.header}>
-            {'members' in data && <AvatarStack users={data.members} />}
-            {!('members' in data) && <AvatarStack users={[data]} />}
+            <AvatarStack type={"profile"} imgUrls={data.imgUrls} />
             <MonoTextHeader style={styles.name}>{data.name}</MonoTextHeader>
             <View style={styles.pronounView}>
-              {'pronouns' in data && (
+              {(!('memberIds' in data)) ? (
                 <>
                   <MonoTextSubHeader style={styles.subtitle}>{data.pronouns}</MonoTextSubHeader>
                   <MonoTextSubHeader style={styles.subtitle}>  •  </MonoTextSubHeader>
                 </>
-              )}
-              {!('pronouns' in data) && (
+              ) : (
                 <>
-                  <MonoTextSubHeader style={styles.subtitle}>{data.members.length} members</MonoTextSubHeader>
+                  <MonoTextSubHeader style={styles.subtitle}>{data.memberIds.length} members</MonoTextSubHeader>
                   <MonoTextSubHeader style={styles.subtitle}>  •  </MonoTextSubHeader>
                 </>
               )}
@@ -63,9 +49,9 @@ const ProfileCard = ({data}: ProfileCardProps) => {
           <View style={styles.content}>
             <MonoText style={styles.subtitle}>{data.mutualAvailabilityStr}</MonoText>
 
-            {'members' in data && (
+            {'memberNames' in data && (
               <View style={{ marginVertical: 5 }}>
-                <MonoText style={{lineHeight: 24}}>{generateMemberStr(data.members)}</MonoText>
+                <MonoText style={{lineHeight: 24}}>{data.memberNames.join(',')}</MonoText>
               </View>
             )}
 

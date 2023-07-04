@@ -27,7 +27,7 @@ const ProfileSettings = () => {
   const [name, setName] = useState(userData.name);
   const [pronouns, setPronouns] = useState(userData.pronouns);
   const [bio, setBio] = useState(userData.bio);
-  const [imgUrl, setImgUrl] = useState(userData.imgUrl);
+  const [imgUrl, setImgUrl] = useState(userData.imgUrls[0]);
   const [searchRadius, setSearchRadius] = useState(0);
 
 
@@ -59,7 +59,7 @@ const ProfileSettings = () => {
   return (
     <View style={styles.container}>
       {/* <MonoTextHeader>Profile Settings</MonoTextHeader> */}
-      <Avatar rounded source={{ uri: userData.imgUrl }} size="large" onPress={pickImage}/>
+      <Avatar rounded source={{ uri: userData.imgUrls[0] }} size="large" onPress={pickImage}/>
       <MonoTextHeader>{userData.name}</MonoTextHeader>
       <MonoText>{userData.pronouns}</MonoText>
       <View style={{ flex: 1 }}>
@@ -67,7 +67,6 @@ const ProfileSettings = () => {
       </View>
       <View style={{ flexDirection: 'row', paddingTop: 20 }}>
         <ProfileCardChipList type="sport" list={userData.sports} add/>
-        <ProfileCardChipList type="court" list={userData.courts} add/>
       </View>
 
       <Divider style={{ height: 40 }} />

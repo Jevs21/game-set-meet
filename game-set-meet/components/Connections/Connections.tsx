@@ -1,5 +1,4 @@
-import { Dimensions, FlatList, ScrollView, StyleSheet } from "react-native";
-import { generateUsersData } from "../../global/testDataGenerator";
+import { Animated, Dimensions, FlatList, ScrollView, StyleSheet } from "react-native";
 import { Separator, View } from "../Themed";
 import ConnectionListItem from "./ConnectionListItem";
 import { useSelector } from "react-redux";
@@ -22,6 +21,22 @@ const Connections = () => {
   useEffect(() => {
     scrollRef.current?.scrollTo({x: selectedIndex * width, animated: true});
   }, [selectedIndex, width]);
+
+
+  const [search, setSearch] = useState('');
+  const scrollA = new Animated.Value(0);
+
+  const searchBarSize = scrollA.interpolate({
+    inputRange: [0, 50],
+    outputRange: [1, 0],
+    extrapolate: 'clamp',
+  });
+
+  const searchBarOpacity = scrollA.interpolate({
+    inputRange: [0, 50],
+    outputRange: [1, 0],
+    extrapolate: 'clamp',
+  });
 
   return (
     <View style={styles.container}>
@@ -48,14 +63,24 @@ const Connections = () => {
           setSelectedIndex(direction);
         }}
       >
-        <FlatList
-          style={{ width: width }}
-          data={loggedUserData?.connections || []}
-          // bounces={false}
-          renderItem={({ item }) => <ConnectionListItem users={item.connectionUsers} />}
-          keyExtractor={(item, index) => item.id || index.toString()}
-          ItemSeparatorComponent={() => <Separator style={{marginVertical: 0}} />}
-        />
+        <View>
+          {/* <Animated.View style={{ transform: [{ scaleY: searchBarSize }], opacity: searchBarOpacity }}>
+            <SearchBar platform="default" value={search} onChangeText={setSearch}/>
+          </Animated.View> */}
+          <FlatList
+            style={{ width: width }}
+            data={loggedUserData?.connections || []}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: scrollA } } }],
+              { useNativeDriver: false }
+            )}
+            // bounces={false}
+            renderItem={({ item }) => <ConnectionListItem connection={item} />}
+            keyExtractor={(item, index) => item.id || index.toString()}
+            ItemSeparatorComponent={() => <Separator style={{marginVertical: 0}} />}
+          />
+        </View>
+        
         
 
         <View style={{ width, height }}> 
