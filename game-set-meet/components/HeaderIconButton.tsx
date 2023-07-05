@@ -5,6 +5,7 @@ import { Icon } from "./Themed";
 interface HeaderIconButtonProps {
   href: string;
   name: string;
+  type?: string;
   size?: number;
 }
 
@@ -19,6 +20,7 @@ const HeaderIconButton = (props: HeaderIconButtonProps) => {
         <Icon
           name={name}
           size={size}
+          type={props.type ?? 'material'}
         />
     </TouchableOpacity>
 

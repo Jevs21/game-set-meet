@@ -36,36 +36,6 @@ interface ConnectionData {
   lastMessage: MessageData;
 }
 
-// interface UserData {
-//   id: string;
-//   name: string;
-//   pronouns: string;
-//   imgUrl: string;
-//   bio: string;
-//   sports: SportData[];
-//   courts: CourtData[];
-//   availability: boolean[][];
-//   mutualAvailabilityStr: string;
-//   distance: number;
-// }
-
-// interface LoggedUserData extends UserData {
-//   email: string;
-//   connections: ConnectionData[];
-// }
-
-// interface TeamData {
-//   id: string;
-//   name: string;
-//   imgUrl: string;
-//   bio: string;
-//   sports: SportData[];
-//   members: UserData[];
-//   availability: boolean[][];
-//   mutualAvailabilityStr: string;
-//   distance: number;
-// }
-
 interface SportData {
   id: string;
   name: string;

@@ -24,7 +24,7 @@ const ProfileCard = ({data}: ProfileCardProps) => {
   // Get data data from global store
   const store = useSelector((state: RootState) => state.userData); 
   return (
-    <View style={{flex: 1, height: height}}>
+    <View style={{height: height, marginVertical: 0}}>
       <Card>
         <View>
           <View style={styles.header}>

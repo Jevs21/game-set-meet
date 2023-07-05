@@ -17,6 +17,14 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const headerStyle = {
+    backgroundColor: Colors[colorScheme ?? 'light'].background,
+    shadowColor: 'transparent',
+  };
+  const titleStyle = {
+    fontFamily: 'Gally',
+    fontSize: 24,
+  };
 
   return (
     <Tabs
@@ -31,10 +39,11 @@ export default function TabLayout() {
           // headerRight: () => (
           //   <HeaderIconButton href="/modal" name="info" />
           // ),
-          headerStyle: {
-            backgroundColor: Colors[colorScheme ?? 'light'].background,
-            shadowColor: 'transparent',
-          },
+          headerRight: () => (
+            <HeaderIconButton href="/modal_feedfilter" name="filter" type='font-awesome' />
+          ),
+          headerStyle: headerStyle,
+          headerTitleStyle: titleStyle,
         }}
       />
       <Tabs.Screen
@@ -45,17 +54,29 @@ export default function TabLayout() {
           headerRight: () => (
             <HeaderIconButton href="/modal" name="add" />
           ),
-          headerStyle: {
-            backgroundColor: Colors[colorScheme ?? 'light'].background,
-            shadowColor: 'transparent',
-          },
+          headerStyle: headerStyle,
+          headerTitleStyle: titleStyle,
         }}
       />
       <Tabs.Screen
         name="three"
         options={{
+          title: 'My Teams',
+          tabBarIcon: ({ color }) => <TabBarIcon name="users" color={color} />,
+          headerRight: () => (
+            <HeaderIconButton href="/modal" name="add" />
+          ),
+          headerStyle: headerStyle,
+          headerTitleStyle: titleStyle,
+        }}
+      />
+      <Tabs.Screen
+        name="four"
+        options={{
           title: 'My Profile',
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
+          headerStyle: headerStyle,
+          headerTitleStyle: titleStyle,
         }}
       />
     </Tabs>

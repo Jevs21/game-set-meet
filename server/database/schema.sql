@@ -11,6 +11,20 @@ CREATE TABLE IF NOT EXISTS users (
   availability_matrix_id UUID NOT NULL REFERENCES user_availability_matrix(id) -- Representing boolean[][] might require a different approach
 );
 
+-- CREATE TABLE IF NOT EXISTS users (
+--   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+--   name VARCHAR(255) NOT NULL,
+--   pronouns VARCHAR(50) DEFAULT NULL,
+--   sex VARCHAR(50) DEFAULT NULL,
+--   age INTEGER DEFAULT NULL,
+--   img_urls JSON NOT NULL DEFAULT '[]',
+--   bio TEXT NOT NULL DEFAULT '',
+--   email VARCHAR(255) NOT NULL,
+--   pass_hash VARCHAR(255) NOT NULL,
+--   verified BOOLEAN NOT NULL DEFAULT FALSE,
+--   availability_matrix_id UUID NOT NULL REFERENCES user_availability_matrix(id)
+-- );
+
 CREATE TABLE IF NOT EXISTS user_availability_matrix (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID NOT NULL REFERENCES users(id),

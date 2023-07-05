@@ -3,7 +3,7 @@
  * https://docs.expo.io/guides/color-schemes/
  */
 
-import { Text as DefaultText, useColorScheme, View as DefaultView, TouchableOpacity } from 'react-native';
+import { Text as DefaultText, useColorScheme, View as DefaultView, TouchableOpacity, TextInput } from 'react-native';
 import Colors from '../constants/Colors';
 // import { Icon as RNEIcon, IconProps } from 'react-native-vector-icons';
 import { Icon as RNEIcon, IconProps } from 'react-native-elements';
@@ -31,6 +31,8 @@ export type ViewProps = ThemeProps & DefaultView['props'];
 export type CardProps = ThemeProps & DefaultView['props'];
 export type ChipProps = ThemeProps & DefaultView['props'] & TouchableOpacity['props'];
 export type CustomIconProps = ThemeProps & IconProps;
+export type SearchBarProps = ThemeProps & TextInput['props'];
+
 // export type CustomIconProps = ThemeProps & IconProps;
 
 export function Text(props: TextProps) {
@@ -104,11 +106,41 @@ export function Separator(props: ViewProps) {
 }
 
 export function Icon(props: CustomIconProps) {
-  const { style, lightColor, darkColor, name, size, ...otherProps } = props;
+  const { style, lightColor, darkColor, name, type, size, ...otherProps } = props;
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
   
-  return <RNEIcon name={name} size={size} color={color} {...otherProps} />;
+  return <RNEIcon name={name} type={type} size={size} color={color} {...otherProps} />;
   // return <RNEIcon name={name} size={size} color={color} style={style} {...otherProps} />;
+}
+
+export function SearchBar(props: SearchBarProps) {
+  const { style, value, onChangeText, lightColor, darkColor, ...otherProps } = props;
+  const borderColor = useThemeColor({ light: lightColor, dark: darkColor }, 'borderColor');
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+
+  return (
+    <View style={{
+      width: '100%',
+      height: 60,
+    }}>
+      <TextInput 
+        style={{
+          flex: 1,
+          height: 40,
+          margin: 10,
+          marginHorizontal: 20,
+          paddingHorizontal: 10,
+          paddingVertical: 10,
+          borderRadius: 20,
+          borderWidth: 1,
+          borderColor: borderColor,
+          backgroundColor: 'transparent'
+        }}
+        placeholder="Search"
+        value={value}
+        onChangeText={onChangeText}/>
+    </View>
+  );
 }
 
 
