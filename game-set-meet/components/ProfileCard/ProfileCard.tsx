@@ -28,7 +28,7 @@ const ProfileCard = ({data}: ProfileCardProps) => {
       <Card>
         <View>
           <View style={styles.header}>
-            <AvatarStack type={"profile"} imgUrls={data.imgUrls} />
+            <AvatarStack type={"profile"} imgUrls={[data.imgUrl]} />
             <MonoTextHeader style={styles.name}>{data.name}</MonoTextHeader>
             <View style={styles.pronounView}>
               {(!('memberIds' in data)) ? (

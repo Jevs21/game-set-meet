@@ -2,7 +2,7 @@
 interface ProfileData {
   id: string;
   name: string;
-  imgUrls: string[];
+  imgUrl: string;
   bio: string;
   sports: SportData[];
   mutualAvailability: boolean[][];
@@ -30,7 +30,7 @@ interface ConnectionData {
   id: string;
   c_type: 'indi' | 'team';
   name: string;
-  imgUrls: string[];
+  imgUrl: string;
   fromId: string;
   toId: string;
   lastMessage: MessageData;

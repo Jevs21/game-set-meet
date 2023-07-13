@@ -21,7 +21,7 @@ const ConnectionListItem = ({connection}: ConnectionListItemProps) => {
         push({
           pathname: '/chat', 
           params: {
-            userJson: JSON.stringify(connection.toId)
+            connectionJson: JSON.stringify(connection),
           },
         });
       }}
@@ -37,7 +37,7 @@ const ConnectionListItem = ({connection}: ConnectionListItemProps) => {
         height: 80
       }}>
         
-        <AvatarStack type={'connection'} imgUrls={connection.imgUrls} />
+        <AvatarStack type={'connection'} imgUrls={[connection.imgUrl]} />
         <View style={{
           flex: 1,
           flexDirection: 'column',

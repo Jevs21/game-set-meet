@@ -10,6 +10,7 @@ import { setUserData } from '../global/userData/actions';
 import store from '../global/store';
 import { generateLoggedUserData, generateUsersData } from '../global/testDataGenerator';
 import { setFeedData } from '../global/feedData/action';
+import Colors from '../constants/Colors';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -56,6 +57,15 @@ function RootLayoutNav() {
     dispatch(setFeedData(testUserData));
   }, [dispatch]);
 
+  const headerStyle = {
+    backgroundColor: Colors[colorScheme ?? 'light'].background,
+    shadowColor: 'transparent',
+  };
+  const headerTitleStyle = {
+    fontFamily: 'Gally',
+    fontSize: 24,
+  };
+
   return (
     <>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -63,7 +73,7 @@ function RootLayoutNav() {
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
           <Stack.Screen name="modal_feedfilter" options={{ title: 'Filters!', presentation: 'modal' }} />
-          <Stack.Screen name="chat" options={{ title: 'Chat' }} />
+          <Stack.Screen name="chat" options={{ title: 'Chat', headerStyle, headerTitleStyle }} />
         </Stack>
       </ThemeProvider>
     </>

@@ -1,47 +1,48 @@
-import { Link, useGlobalSearchParams, useNavigation } from "expo-router";
-import { BaseText, MonoText, MonoTextSubHeader } from "../StyledText";
+import { useGlobalSearchParams, useNavigation } from "expo-router";
 import { View } from "../Themed";
-import { useLayoutEffect, useState } from "react";
-import ChatUserSummary from "./ChatUserSummary";
+import React, { useLayoutEffect, useState } from "react";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Avatar } from "react-native-elements";
 import HeaderIconButton from "../HeaderIconButton";
+import ChatHeader from "./ChatHeader";
 
 const Chat = () => {
-  const [user, setUser] = useState<UserData | null>(null); // [1
-  const { userJson } = useGlobalSearchParams<{
-    userJson: string
+  const [conn, setConn] = useState<ConnectionData | null>(null); // [1
+  const { connectionJson } = useGlobalSearchParams<{
+    connectionJson: string,
   }>();
   const navigation = useNavigation();
+
   useLayoutEffect(() => {
-    let user: UserData = JSON.parse(userJson || '{}');
-    console.log(user);
-    if (!user) {
-      setUser(null);
+    const conn: ConnectionData = JSON.parse(connectionJson || '{}');
+    console.log(conn);
+    if (!conn) {
+      setConn(null);
       return;
     }
 
     navigation.setOptions({ 
-      // title: `${user.name}`,
-      headerRight: () => <HeaderIconButton href={`/modal?type=user&userJson=${JSON.stringify(user)}`} name={'edit'} />,
-      headerTitle: () => (
-        <Link href={{ pathname: '/modal', params: { 
-          type: 'user', 
-          userJson: JSON.stringify(user) 
-          } 
-        }}>
-          <BaseText>{user.name}</BaseText>
-        </Link>
-      )
+      headerRight: () => <HeaderIconButton href={`/modal?type=conn&connJson=${JSON.stringify(conn)}`} name={'edit'} />,
+      header : () => <ChatHeader conn={conn} />,
+      // headerTitle: () => (
+        
+      //   // <Link href={{ pathname: '/modal', params: { 
+      //   //   type: 'conn', 
+      //   //   connJson: JSON.stringify(conn) 
+      //   //   } 
+      //   // }}>
+      //   //   <MonoTextSubHeader>{conn.name}</MonoTextSubHeader>
+      //   // </Link>
+      // ),
+      // headerStyle: { height: 300 },
     });
-    setUser(user);
-  }, [navigation, userJson]);
+
+    setConn(conn);
+  }, [navigation, connectionJson]);
   
   return (
     <View style={{flex: 1}}>
-      <ChatUserSummary user={user} />
       <KeyboardAwareScrollView 
         style={{flex: 1}}
         contentContainerStyle={{flex: 1}} 
